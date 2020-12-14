@@ -1,0 +1,368 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+  <!-- Third party plugin JS-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+  <!-- Core theme JS-->
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.70.1/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.70.1/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+
+  <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+    rel="stylesheet">
+  <!-- Third party plugin CSS-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="css/styles.css" rel="stylesheet" />
+  <link href="css/slider.css" rel="stylesheet" />
+  <script src="./javascripts/common.js"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+
+</head>
+
+<body id="body">
+  <div class="d-flex h-100">
+    <div class="flex-auto">
+      <div class="slider-container-wrapper max-width-350">
+        <div class="slidecontainer d-flex flex-column h-100">
+          <div class="navbar-brand m-0 is-title flex-auto">
+            <h6 class="nav-title">Heading</h6>
+            <p class="nav-subtext">Description</p>
+          </div>
+          <div class="py-2 set-height flex-fill overflow-auto">
+            <div class="d-flex flex-wrap">
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="radio-outer-wrapper">
+                  <h2 class="label-head">Region</h2>
+                  <div id="places"></div>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-7 col-lg-12">
+                <div class="radio-outer-wrapper">
+                  <h2 class="label-head">Pollution</h2>
+                  <div id="pollutions"></div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="radio-outer-wrapper" id="indices-wrapper">
+                  <h2 class="label-head">Indices</h2>
+                  <div id="indices"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class="silder-wrapper progress-slider mb-2" id="dynamicslider"></div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class="has-decription">
+                <h2>Description</h2>
+                It is a long established fact that a reader will be distracted by the readable content of a
+                page when looking at its layout. 
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="flex-fill">
+      <div id="cesiumContainer" class="fullSize"></div>
+    </div>
+  </div>
+
+
+
+  </div>
+  </div>
+  <script>
+    window.onload = function () {
+      if (typeof Cesium !== 'undefined') {
+        window.startupCalled = true;
+        startup(Cesium);
+      }
+    }
+
+      var availablePlaces=[
+                          {id:1,name:'Kerala - Kollam',checked:false,position:{west:74 ,south:8 ,east:78,north:12}},
+                          {id:2,name:'Mumbai',checked:false,position:{west:72.752774 ,south:18.880119  ,east:72.972501,north:19.292424 }},
+                          {id:3,name:'Kolkata',checked:false,position:{west:88.093924  ,south:22.323730  ,east:88.560843,north:23.023196  }},
+                          {id:4,name:'Delhi',checked:false,position:{west:76.796737 ,south:28.391732 ,east:77.360983,north:28.906192}},
+                          {id:5,name:'Hydrabad',checked:false,position:{west:78.138871  ,south:17.197061 ,east:78.695783,north:17.435885  }}
+                          ];
+                          
+      var pollutionTypes=[
+                          {id:1,name:'Air Pollution',checked:false,indices:[1,2]},
+                          {id:2,name:'Water Pollution',checked:false,indices:[3,4]},
+                          {id:3,name:'Air Pollution2',checked:false,indices:[5,6]},
+                          {id:4,name:'Water Pollution2',checked:false,indices:[6,7]}
+                        ];
+
+      var availableIndices=[{id:1,name:'AQI',checked:false,date:["2013_04_01", "2013_10_01","2014_04_01", "2014_10_01","2015_04_01"]},
+                            {id:2,name:'BQI',checked:false,date:["2015_10_01", "2016_04_01",  "2016_10_01", "2017_04_01", "2017_10_01"]},
+                            {id:3,name:'CQI',checked:false,date:["2013_04_01", "2013_10_01","2014_04_01", "2014_10_01","2015_04_01"]},
+                            {id:4,name:'DQI',checked:false,date:["2015_10_01", "2016_04_01",  "2016_10_01", "2017_04_01", "2017_10_01"]},
+                            {id:5,name:'EQI',checked:false,date:["2017_10_01", "2018_04_01", "2018_10_01", "2019_04_01",  "2019_10_01"]},
+                            {id:6,name:'GQI',checked:false,date:["2013_04_01", "2013_10_01","2014_04_01", "2014_10_01","2015_04_01"]},
+                            {id:7,name:'HQI',checked:false,date:["2015_10_01", "2016_04_01",  "2016_10_01", "2017_04_01", "2017_10_01"]}
+                          ];
+
+      let radioCheckedIndex=0;
+      let selectedPollution={};
+      let selectedPlace= {};
+      let sliderChange="";
+      let checkBoxIndices="";
+      let indicesToShow=[];
+      var viewer = null;
+      var layers = null;
+      var layer = null;
+     
+      document.getElementById('indices-wrapper').style.display='none';
+      document.getElementById('places').innerHTML=radioPlaces();
+      document.getElementById('pollutions').innerHTML=radioPollutions();
+
+      function radioPlaces(){
+        let radiobutton="";
+        for(let index=0;index<availablePlaces.length;index++){
+          let checked=availablePlaces[index].checked?"checked=" + availablePlaces[index].checked :''
+          radiobutton=radiobutton+"<label class=radio-container>" + availablePlaces[index].name +
+                            " <input type=radio "+ checked + " name=place value='"+availablePlaces[index].id + "' onclick=radioPlaceChangeHandler(this.value);>" +
+                            " <span class=checkmark></span>"+
+                          " </label>"
+          if(checked){
+            selectedPlace=availablePlaces[index];   
+          }
+        }
+       
+        return radiobutton;
+      }
+
+      function radioPlaceChangeHandler(type){
+        for(let index=0;index<availablePlaces.length;index++){
+          if(availablePlaces[index].id==type){
+            availablePlaces[index].checked=true;
+            selectedPlace=availablePlaces[index];
+            reset();
+            viewer.camera.flyTo({
+              destination : Cesium.Cartesian3.fromDegrees(selectedPlace.position.west, selectedPlace.position.south,  250000)
+            });
+          }else{
+            availablePlaces[index].checked=false;
+          }
+        }
+      }
+
+      function reset(){
+        pollutionTypes.map(e=>{
+          e.checked=false
+        })
+        availableIndices.map(e=>{
+          e.checked=false
+        })
+        document.getElementById('pollutions').innerHTML=radioPollutions();
+        document.getElementById('indices').innerHTML=radioIndices();
+        document.getElementById('indices-wrapper').style.display='none';
+        document.getElementById('dynamicslider').innerHTML="";
+        let imageToBeDisplayed=""
+        ImageryPlotting(imageToBeDisplayed)
+      }
+    
+      function radioPollutions(){
+        let radiobutton="";
+        for(let index=0;index<pollutionTypes.length;index++){
+          let checked=pollutionTypes[index].checked?"checked=" + pollutionTypes[index].checked :''
+          radiobutton=radiobutton+"<label class=radio-container>" + pollutionTypes[index].name +
+                            " <input type=radio "+ checked + " name=pollutions value='"+pollutionTypes[index].id + "' onclick=radioPollutionChangeHandler(this.value);>" +
+                            " <span class=checkmark></span>"+
+                          " </label>"
+          if(checked){
+            selectedPollution=pollutionTypes[index];
+            indicesToShow=pollutionTypes[index].indices;
+            document.getElementById('indices').innerHTML=radioIndices();
+            document.getElementById('indices-wrapper').style.display='block';
+          }
+        }
+        return radiobutton;
+      }
+
+      function radioPollutionChangeHandler(type) {
+        for(let index=0;index<pollutionTypes.length;index++){
+          if(pollutionTypes[index].id==type){
+            pollutionTypes[index].checked=true;
+            selectedPollution=pollutionTypes[index];
+            indicesToShow=pollutionTypes[index].indices;
+             document.getElementById('dynamicslider').innerHTML='';
+            document.getElementById('indices').innerHTML=radioIndices();
+            document.getElementById('indices-wrapper').style.display='block';
+            ImageryPlotting("");
+          }else{
+            pollutionTypes[index].checked=false;
+          }
+        }
+      }
+
+     
+      function radioIndices(){
+        let radiobutton = "";
+        for (let index = 0; index < availableIndices.length; index++) {
+          for (let indicesToShowId = 0; indicesToShowId < indicesToShow.length; indicesToShowId++) {
+            if (availableIndices[index].id == indicesToShow[indicesToShowId]) {
+              let checked = availableIndices[index].checked ? "checked=" + availableIndices[index].checked : ''
+              radiobutton = radiobutton + "<label class=radio-container>" + availableIndices[index].name +
+                " <input type=radio " + checked + " name=indices value='" + availableIndices[index].id + "' onclick=radioIndicesChangeHandler(this.value);>" +
+                " <span class=checkmark></span>" +
+                " </label>"
+              if (checked) {
+                radioCheckedIndex=index;
+                document.getElementById('dynamicslider').innerHTML=dynamicSlider(index);
+              }
+            }
+          }
+        }
+        return radiobutton;
+      }
+
+      function radioIndicesChangeHandler(type) {
+        for(let index=0;index<availableIndices.length;index++){
+          if(availableIndices[index].id==type){
+            availableIndices[index].checked=true;
+            radioCheckedIndex=index;
+            document.getElementById('dynamicslider').innerHTML=dynamicSlider(index);
+            let imageToBeDisplayed=selectedPlace.name+'/'+selectedPollution.name+'/'+availableIndices[radioCheckedIndex].name+'/'+availableIndices[radioCheckedIndex].date[0]
+            console.log(imageToBeDisplayed,"imagetobedisplayed");
+            ImageryPlotting(imageToBeDisplayed)
+          }else{
+            availableIndices[index].checked=false;
+          }
+        }
+      }
+
+      function dynamicSlider(index){
+        let max=availableIndices[index].date.length-1
+        return "<div id=slider class=text-left text-white style=font-size:medium>" + sliderValueToDate(0) +"</div>" +
+                "<div class=my-2>"+ "<form class=color-orange>" + 
+                "<input id=range1 name=range1 type=range min=0 max="+ max +" value=0 oninput=sliderChangeHandler(this.value,'slider') ></form></div>"
+      }
+
+      function sliderValueToDate(sliderValue) {
+        var formatedDate = (availableIndices[radioCheckedIndex].date[sliderValue]).replace(/_/g, "-");
+        return formatedDate;
+      }
+  
+      function sliderChangeHandler(valueFromSlider, targetDivId) {
+        var formatedDate = sliderValueToDate(valueFromSlider);
+        document.getElementById(targetDivId).innerHTML = formatedDate;
+        let imageToBeDisplayed=selectedPlace.name+'/'+selectedPollution.name+'/'+availableIndices[radioCheckedIndex].name+'/'+formatedDate.replace(/-/g, "_")
+        console.log(imageToBeDisplayed,"imagetobedisplayed");
+        ImageryPlotting(imageToBeDisplayed)
+      }
+
+     
+
+      function startup(Cesium) {
+        "use strict";
+        let images = [];
+        for (let place = 0; place < availablePlaces.length; place++) {
+          for (let pollution = 0; pollution < pollutionTypes.length; pollution++) {
+            for (let indice = 0; indice < availableIndices.length; indice++) {
+              for (let indicesWeHave = 0; indicesWeHave < pollutionTypes[pollution].indices.length; indicesWeHave++) {
+                if (availableIndices[indice].id == pollutionTypes[pollution].indices[indicesWeHave]) {
+                  for (let date = 0; date < availableIndices[indice].date.length; date++) {
+                    let eachImage = ".\\images_environmental_impacts\\" + availablePlaces[place].name + "\\" + pollutionTypes[pollution].name + "\\" + availableIndices[indice].name + "\\" + availableIndices[indice].date[date] + ".png"
+                    images.push(eachImage);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        preloadImages(images);
+
+
+        Cesium.Ion.defaultAccessToken =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2NzlmYTEzYi1mMmQ5LTQwMmEtYTM3ZS1lNjMxZmZhODNjNDIiLCJpZCI6MzE1NDQsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1OTU1NjUzNTZ9.T1pgxh_vcoOcPawkwQtu96b6hG_SYaRJnaSMbdDASv0";
+          viewer = new Cesium.Viewer("cesiumContainer", {
+          homeButton: false,
+          fullscreenButton: false,
+          baseLayerPicker: true,
+          animation: false,
+          geocoder: false,
+          infoBox: false,
+          timeline: false,
+          sceneModePicker: false,
+          navigationHelpButton: false,
+          terrainProvider: Cesium.createWorldTerrain(),
+        });
+        var initialPosition = new Cesium.Cartesian3.fromDegrees(0,0,0,0);
+        var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(
+          0.0,
+          -40,
+          0.0
+        );
+        var homeCameraView = {
+          destination: initialPosition,
+          orientation: {
+            heading: initialOrientation.heading,
+            pitch: initialOrientation.pitch,
+            roll: initialOrientation.roll,
+          },
+        };
+        viewer.scene.camera.setView(homeCameraView);
+        viewer.clock.shouldAnimate = false;
+      }
+
+      function preloadImages(array) {
+        if (!preloadImages.list) {
+          preloadImages.list = [];
+        }
+        var list = preloadImages.list;
+        for (var i = 0; i < array.length; i++) {
+          var img = new Image();
+          img.onload = function () {
+            var index = list.indexOf(this);
+            if (index !== -1) {
+              list.splice(index, 1);
+            }
+          }
+          list.push(img);
+          img.src = array[i];
+        }
+      }
+
+
+      function ImageryPlotting(imageType) {
+        layers = viewer.scene.imageryLayers;
+        layers.remove(layer);
+        if (imageType != null) {
+          var imagePath = `./images_environmental_impacts/${imageType}.png`;
+          layer = layers.addImageryProvider(
+            new Cesium.SingleTileImageryProvider({
+              url: imagePath,
+              rectangle: Cesium.Rectangle.fromDegrees(
+                selectedPlace.position.west,
+                selectedPlace.position.south ,
+                selectedPlace.position.east,
+                selectedPlace.position.north
+              ),
+            })
+          );
+          layers.add(layer);
+        }
+      }
+    </script>
+</body>
+</html>
