@@ -297,10 +297,10 @@
       function startup(Cesium) {
         "use strict";
         let images = [];
-        const testFolder = './tests/';
+       
         const fs = require('fs');
-        let testFolder='./images_environmental_impacts/Chennai'
-        fs.readdirSync().forEach(file => {
+        let testFolder='./images_environmental_impacts/Chennai/'
+        fs.readdirSync(testFolder).forEach(file => {
           console.log(file);
         });
         for (let place = 0; place < availablePlaces.length; place++) {
