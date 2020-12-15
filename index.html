@@ -58,7 +58,7 @@
               </div>
               <div class="col-sm-12 col-md-7 col-lg-12">
                 <div class="radio-outer-wrapper">
-                  <h2 class="label-head">Pollution</h2>
+                  <h2 class="label-head">Analysis Parameters</h2>
                   <div id="pollutions"></div>
                 </div>
               </div>
@@ -298,11 +298,11 @@
         "use strict";
         let images = [];
        
-        const fs = require('fs');
-        let testFolder='./images_environmental_impacts/Chennai/'
-        fs.readdirSync(testFolder).forEach(file => {
-          console.log(file);
-        });
+        // const fs = require('fs');
+        // let testFolder='./images_environmental_impacts/Chennai/'
+        // fs.readdirSync(testFolder).forEach(file => {
+        //   console.log(file);
+        // });
         for (let place = 0; place < availablePlaces.length; place++) {
           for (let pollution = 0; pollution < pollutionTypes.length; pollution++) {
             for (let indice = 0; indice < availableIndices.length; indice++) {
