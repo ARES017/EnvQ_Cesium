@@ -34,19 +34,15 @@
 </head>
 
 <body id="body">
- 
-    <!--  Firebase -->
-    <script src="/__/firebase/8.2.0/firebase-app.js"></script>
-    <script src="/__/firebase/8.2.0/firebase-analytics.js"></script>
-    <script src="/__/firebase/init.js"></script>
-    
+
   <div class="d-flex h-100">
     <div class="flex-auto">
       <div class="slider-container-wrapper max-width-350">
         <div class="slidecontainer d-flex flex-column h-100">
           <div class="navbar-brand m-0 is-title flex-auto">
             <h6 class="nav-title">EnvQ</h6>
-            <p class="nav-subtext">Application depicting the impact of pollution on pre, post and during Covid-19 lockdown period.</p>
+            <p class="nav-subtext">Application depicting the impact of pollution on pre, post and during Covid-19
+              lockdown period.</p>
           </div>
           <div class="py-2 set-height flex-fill overflow-auto">
             <div class="d-flex flex-wrap">
@@ -98,311 +94,384 @@
       }
     }
 
-    var availablePlaces=[
-                          {id:1,name:'Chennai',checked:false,position:{west:80.0 ,south:12.95 ,east:80.1,north:13.05}},
-                          {id:2,name:'Mumbai',checked:false,position:{west:72.9 ,south:19  ,east:73,north: 19.1}},
-                          {id:3,name:'Kolkata',checked:false,position:{west:88.3  ,south: 22.6 ,east:88.4,north:22.7  }},
-                          {id:4,name:'Delhi',checked:false,position:{west:77.25 ,south:28.5 ,east:77.35,north:28.6}},
-                          {id:5,name:'Hyderabad',checked:false,position:{west:78.45 ,south:17.4 ,east:78.5,north:17.45  }}
-                          ];
-                          
-      var pollutionTypes=[
-                          {id:1,name:'Air pollution',checked:false,indices:[1,2,3,4,5,6],placeId:0},
-                          {id:2,name:'Water Pollution',checked:false,indices:[7,8,9,10],placeId:0},
-                          {id:3,name:'False color',checked:false,indices:[11],placeId:0},
-                        ];
+    var availablePlaces = [
+      { id: 1, name: 'Chennai', checked: false, position: { west: 80.0, south: 12.95, east: 80.1, north: 13.05 } },
+      { id: 2, name: 'Mumbai', checked: false, position: { west: 72.9, south: 19, east: 73, north: 19.1 } },
+      { id: 3, name: 'Kolkata', checked: false, position: { west: 88.3, south: 22.6, east: 88.4, north: 22.7 } },
+      { id: 4, name: 'Delhi', checked: false, position: { west: 77.25, south: 28.5, east: 77.35, north: 28.6 } },
+      { id: 5, name: 'Hyderabad', checked: false, position: { west: 78.45, south: 17.4, east: 78.5, north: 17.45 } }
+    ];
 
-      var availableIndices=[{id:1,name:'AQI',checked:false,date:['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_06', '2020_02_13', '2020_02_20', '2020_02_27', '2020_03_05', '2020_03_12', '2020_03_19', '2020_03_26', '2020_04_02', '2020_04_09', '2020_04_16', '2020_04_23', '2020_04_30', '2020_05_07', '2020_05_14', '2020_05_21', '2020_05_28', '2020_06_04', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_28'],description:"Air Quality Index (AQI) is calculated by aggregating other air quality metrics over a specified averaging period. Green to red shades indicate lower to higher AQI values."},
-                            {id:2,name:'CO',checked:false,date:["2015_10_01", "2016_04_01",  "2016_10_01", "2017_04_01", "2017_10_01"],description:"Carbon monoxide (CO, a colorless, odorless, tasteless, and toxic air pollutant is produced in the incomplete combustion of carbon-containing fuels, such as gasoline, natural gas, oil, coal, and wood. Green to red shades indicate lower to higher pollution rate."},
-                            {id:3,name:'NOx',checked:false,date:["2013_04_01", "2013_10_01","2014_04_01", "2014_10_01","2015_04_01"],description:" Nitrogen Oxides are a family of poisonous, highly reactive gases formed when fuel is burned at high temperatures. NOx pollution is caused by automobiles, trucks and various non-road vehicles. Green to red shades indicate lower to higher pollution rate."},
-                            {id:4,name:'O3',checked:false,date:["2015_10_01", "2016_04_01",  "2016_10_01", "2017_04_01", "2017_10_01"],description:"Ozone is not emitted directly into the air, but is created by chemical reactions between oxides of nitrogen (NOx) and volatile organic compounds (VOC). This happens when pollutants emitted by cars, power plants, industrial boilers and other sources chemically react in the presence of sunlight. Green to red shades indicate lower to higher pollution rate"},
-                            {id:5,name:'PM2.5',checked:false,date:["2017_10_01", "2018_04_01", "2018_10_01", "2019_04_01",  "2019_10_01"],description:"Particulate matter (PM 2.5) are tiny inhalable particles in the air that cause serious health issues and reduce visibility (haze) when their levels are elevated. Green to red shades indicate lower to higher pollution rate."},
-                            {id:6,name:'SO2',checked:false,date:["2013_04_01", "2013_10_01","2014_04_01", "2014_10_01","2015_04_01"],description:"SO2 is emitted by the burning of fossil fuels such as coal, oil, and diesel or other materials that contain sulfur. Green to red shades indicate lower to higher pollution rate."},
-                            {id:7,name:'LYM8',checked:false,date:['2020_01_25', '2020_02_10', '2020_02_26', '2020_03_13', '2020_03_29', '2020_04_30', '2020_05_16', '2020_06_01', '2020_06_17', '2020_07_03', '2020_09_05', '2020_09_21', '2020_10_07', '2020_10_23'],description:" Lymburner Total Suspended Matter. LYM8 is an algorithm to find the concentration of Total Suspended Matter (TSM) in mg/L. Paper: Lymburner et al. 2016. Blue to black shades indicates low to high pollution."},
-                            {id:8,name:'NDSSI',checked:false,date:['2020_01_25', '2020_02_10', '2020_02_26', '2020_03_13', '2020_03_29', '2020_04_30', '2020_05_16', '2020_06_01', '2020_06_17', '2020_07_03', '2020_09_05', '2020_09_21', '2020_10_07', '2020_10_23'],description:"Normalized Difference Suspended Sediment Index. The NDSSI value ranges from -1 to +1. Values closer to +1 indicate higher concentration of sediment. Paper: Hossain et al. 2010. Blue to black shades indicates low to high pollution"},
-                            {id:9,name:'QUANG8',checked:false,date:['2020_01_25', '2020_02_10', '2020_02_26', '2020_03_13', '2020_03_29', '2020_04_30', '2020_05_16', '2020_06_01', '2020_06_17', '2020_07_03', '2020_09_05', '2020_09_21', '2020_10_07', '2020_10_23'],description:" It is a long established fact that a reader will be distracted by the readable content of page when looking at its layout."},
-                            {id:10,name:'SPM_QUI',checked:false,date:['2020_01_25', '2020_02_10', '2020_02_26', '2020_03_13', '2020_03_29', '2020_04_30', '2020_05_16', '2020_06_01', '2020_06_17', '2020_07_03', '2020_09_05', '2020_09_21', '2020_10_07', '2020_10_23'],description:" Suspended Particulate Model. SPM_QUI finds the distribution of the suspended particulate matter (SPM) concentration in g/m3. Paper: Zhongfeng Qiu et.al. 2013. Blue to black shades indicates low to high pollution"},
-                            {id:11,name:'False color',checked:false,date:["2015_10_01", "2016_04_01",  "2016_10_01", "2017_04_01", "2017_10_01"],description:"Bands 5, 6 and 4 (NIR, SWIR1 and RED) are used to create false color good for picking out land from water. Here land appears in shades of orange and green, ice stands out as a vibrant magenta color, and water appears in shades of blue."}
-                          ];
+    var pollutionTypes = [
+      { id: 1, name: 'Air pollution', checked: false, indices: [1, 2, 3, 4, 5, 6], placeId: 0 },
+      { id: 2, name: 'Water Pollution', checked: false, indices: [7, 8, 9, 10], placeId: 0 },
+      { id: 3, name: 'False color', checked: false, indices: [11], placeId: 0 },
+    ];
 
-      let radioCheckedIndex=0;
-      let selectedPollution={};
-      let selectedPlace= {};
-      let sliderChange="";
-      let checkBoxIndices="";
-      let indicesToShow=[];
-      var viewer = null;
-      var layers = null;
-      var layer = null;
-     
-      document.getElementById('indices-wrapper').style.display='none';
-      document.getElementById('places').innerHTML=radioPlaces();
-      document.getElementById('pollutions').innerHTML=radioPollutions();
+    var availableIndicesOfChennai = [{ id: 1, name: 'AQI', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_06', '2020_02_13', '2020_02_20', '2020_02_27', '2020_03_05', '2020_03_12', '2020_03_19', '2020_03_26', '2020_04_02', '2020_04_09', '2020_04_16', '2020_04_23', '2020_04_30', '2020_05_07', '2020_05_14', '2020_05_21', '2020_05_28', '2020_06_04', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_28'], description: "Air Quality Index (AQI) is calculated by aggregating other air quality metrics over a specified averaging period. Green to red shades indicate lower to higher AQI values." },
+    { id: 2, name: 'CO', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_06', '2020_02_13', '2020_02_20', '2020_02_27', '2020_03_05', '2020_03_12', '2020_03_19', '2020_03_26', '2020_04_02', '2020_04_09', '2020_04_16', '2020_04_23', '2020_04_30', '2020_05_07', '2020_05_14', '2020_05_21', '2020_05_28', '2020_06_04', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_28'], description: "Carbon monoxide (CO, a colorless, odorless, tasteless, and toxic air pollutant is produced in the incomplete combustion of carbon-containing fuels, such as gasoline, natural gas, oil, coal, and wood. Green to red shades indicate lower to higher pollution rate." },
+    { id: 3, name: 'NOx', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_06', '2020_02_13', '2020_02_20', '2020_02_27', '2020_03_05', '2020_03_12', '2020_03_19', '2020_03_26', '2020_04_02', '2020_04_09', '2020_04_16', '2020_04_23', '2020_04_30', '2020_05_07', '2020_05_14', '2020_05_21', '2020_05_28', '2020_06_04', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_28'], description: " Nitrogen Oxides are a family of poisonous, highly reactive gases formed when fuel is burned at high temperatures. NOx pollution is caused by automobiles, trucks and various non-road vehicles. Green to red shades indicate lower to higher pollution rate." },
+    { id: 4, name: 'O3', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_06', '2020_02_13', '2020_02_20', '2020_02_27', '2020_03_05', '2020_03_12', '2020_03_19', '2020_03_26', '2020_04_02', '2020_04_09', '2020_04_16', '2020_04_23', '2020_04_30', '2020_05_07', '2020_05_14', '2020_05_21', '2020_05_28', '2020_06_04', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_15', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_28'], description: "Ozone is not emitted directly into the air, but is created by chemical reactions between oxides of nitrogen (NOx) and volatile organic compounds (VOC). This happens when pollutants emitted by cars, power plants, industrial boilers and other sources chemically react in the presence of sunlight. Green to red shades indicate lower to higher pollution rate" },
+    { id: 5, name: 'PM2.5', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_06', '2020_02_13', '2020_02_20', '2020_02_27', '2020_03_05', '2020_03_12', '2020_03_19', '2020_03_26', '2020_04_02', '2020_04_09', '2020_04_16', '2020_04_23', '2020_04_30', '2020_05_07', '2020_05_14', '2020_05_21', '2020_05_28', '2020_06_04', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_28'], description: "Particulate matter (PM 2.5) are tiny inhalable particles in the air that cause serious health issues and reduce visibility (haze) when their levels are elevated. Green to red shades indicate lower to higher pollution rate." },
+    { id: 6, name: 'SO2', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_06', '2020_02_13', '2020_02_20', '2020_02_27', '2020_03_05', '2020_03_12', '2020_03_19', '2020_03_26', '2020_04_02', '2020_04_09', '2020_04_16', '2020_04_23', '2020_04_30', '2020_05_07', '2020_05_14', '2020_05_21', '2020_05_28', '2020_06_04', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_28'], description: "SO2 is emitted by the burning of fossil fuels such as coal, oil, and diesel or other materials that contain sulfur. Green to red shades indicate lower to higher pollution rate." },
+    { id: 7, name: 'LYM8', checked: false, date: ['2020_01_13', '2020_01_29', '2020_02_14', '2020_03_01', '2020_03_17', '2020_04_02', '2020_04_18', '2020_05_04', '2020_05_20', '2020_06_05', '2020_07_07', '2020_07_23', '2020_08_24', '2020_10_27'], description: " Lymburner Total Suspended Matter. LYM8 is an algorithm to find the concentration of Total Suspended Matter (TSM) in mg/L. Paper: Lymburner et al. 2016. Blue to black shades indicates low to high pollution." },
+    { id: 8, name: 'NDSSI', checked: false, date: ['2020_01_13', '2020_01_29', '2020_02_14', '2020_03_01', '2020_03_17', '2020_04_02', '2020_04_18', '2020_05_04', '2020_05_20', '2020_06_05', '2020_07_07', '2020_07_23', '2020_08_24', '2020_10_27'], description: "Normalized Difference Suspended Sediment Index. The NDSSI value ranges from -1 to +1. Values closer to +1 indicate higher concentration of sediment. Paper: Hossain et al. 2010. Blue to black shades indicates low to high pollution" },
+    { id: 9, name: 'QUANG8', checked: false, date: ['2020_01_13', '2020_01_29', '2020_02_14', '2020_03_01', '2020_03_17', '2020_04_02', '2020_04_18', '2020_05_04', '2020_05_20', '2020_06_05', '2020_07_07', '2020_07_23', '2020_08_24', '2020_10_27'], description: " It is a long established fact that a reader will be distracted by the readable content of page when looking at its layout." },
+    { id: 10, name: 'SPM_QUI', checked: false, date: ['2020_01_13', '2020_01_29', '2020_02_14', '2020_03_01', '2020_03_17', '2020_04_02', '2020_04_18', '2020_05_04', '2020_05_20', '2020_06_05', '2020_07_07', '2020_07_23', '2020_08_24', '2020_10_27'], description: " Suspended Particulate Model. SPM_QUI finds the distribution of the suspended particulate matter (SPM) concentration in g/m3. Paper: Zhongfeng Qiu et.al. 2013. Blue to black shades indicates low to high pollution" },
+    { id: 11, name: 'False color', checked: false, date: ['2020_01_13', '2020_01_29', '2020_02_14', '2020_03_01', '2020_03_17', '2020_04_02', '2020_04_18', '2020_05_04', '2020_05_20', '2020_06_05', '2020_07_07', '2020_07_23', '2020_08_24', '2020_10_27'], description: "Bands 5, 6 and 4 (NIR, SWIR1 and RED) are used to create false color good for picking out land from water. Here land appears in shades of orange and green, ice stands out as a vibrant magenta color, and water appears in shades of blue." }
+    ];
 
-      function radioPlaces(){
-        let radiobutton="";
-        for(let index=0;index<availablePlaces.length;index++){
-          let checked=availablePlaces[index].checked?"checked=" + availablePlaces[index].checked :''
-          radiobutton=radiobutton+"<label class=radio-container>" + availablePlaces[index].name +
-                            " <input type=radio "+ checked + " name=place value='"+availablePlaces[index].id + "' onclick=radioPlaceChangeHandler(this.value);>" +
-                            " <span class=checkmark></span>"+
-                          " </label>"
-          if(checked){
-            selectedPlace=availablePlaces[index];   
-          }
-        }
-        return radiobutton;
-      }
+    var availableIndicesOfMumbai = [{ id: 1, name: 'AQI', checked: false, date: ['2020_01_02', '2020_01_09', '2020_02_15', '2020_02_22', '2020_02_29', '2020_03_09', '2020_03_16', '2020_03_23', '2020_03_30', '2020_04_06', '2020_04_13', '2020_04_20', '2020_04_27', '2020_05_04', '2020_05_11', '2020_05_18', '2020_05_25', '2020_06_01', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_08_06', '2020_08_13', '2020_08_21', '2020_08_28', '2020_09_04', '2020_09_11', '2020_09_18', '2020_09_25', '2020_10_02', '2020_10_12', '2020_10_19', '2020_10_26', '2020_11_02', '2020_11_09', '2020_11_16', '2020_11_23'], description: "Air Quality Index (AQI) is calculated by aggregating other air quality metrics over a specified averaging period. Green to red shades indicate lower to higher AQI values." },
+    { id: 2, name: 'CO', checked: false, date: ['2020_01_02', '2020_01_09', '2020_02_15', '2020_02_22', '2020_02_29', '2020_03_09', '2020_03_16', '2020_03_23', '2020_03_30', '2020_04_06', '2020_04_13', '2020_04_20', '2020_04_27', '2020_05_04', '2020_05_11', '2020_05_18', '2020_05_25', '2020_06_01', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_08_06', '2020_08_13', '2020_08_21', '2020_08_28', '2020_09_04', '2020_09_11', '2020_09_18', '2020_09_25', '2020_10_02', '2020_10_12', '2020_10_19', '2020_10_26', '2020_11_02', '2020_11_09', '2020_11_16', '2020_11_23'], description: "Carbon monoxide (CO, a colorless, odorless, tasteless, and toxic air pollutant is produced in the incomplete combustion of carbon-containing fuels, such as gasoline, natural gas, oil, coal, and wood. Green to red shades indicate lower to higher pollution rate." },
+    { id: 3, name: 'NOx', checked: false, date: ['2020_01_02', '2020_01_09', '2020_02_15', '2020_02_22', '2020_02_29', '2020_03_09', '2020_03_16', '2020_03_23', '2020_03_30', '2020_04_06', '2020_04_13', '2020_04_20', '2020_05_18', '2020_05_25', '2020_06_01', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_08_06', '2020_08_13', '2020_08_21', '2020_08_28', '2020_09_04', '2020_09_11', '2020_09_18', '2020_09_25', '2020_10_02', '2020_10_12', '2020_10_19', '2020_10_26', '2020_11_02', '2020_11_09', '2020_11_16', '2020_11_23'], description: " Nitrogen Oxides are a family of poisonous, highly reactive gases formed when fuel is burned at high temperatures. NOx pollution is caused by automobiles, trucks and various non-road vehicles. Green to red shades indicate lower to higher pollution rate." },
+    { id: 4, name: 'O3', checked: false, date: ['2020_01_02', '2020_01_09', '2020_02_15', '2020_02_22', '2020_02_29', '2020_03_09', '2020_03_16', '2020_03_23', '2020_03_30', '2020_04_06', '2020_04_13', '2020_04_20', '2020_05_18', '2020_05_25', '2020_06_01', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_08_06', '2020_08_13', '2020_08_21', '2020_08_28', '2020_09_04', '2020_09_11', '2020_09_18', '2020_09_25', '2020_10_02', '2020_10_12', '2020_10_19', '2020_10_26', '2020_11_02', '2020_11_09', '2020_11_16', '2020_11_23'], description: "Ozone is not emitted directly into the air, but is created by chemical reactions between oxides of nitrogen (NOx) and volatile organic compounds (VOC). This happens when pollutants emitted by cars, power plants, industrial boilers and other sources chemically react in the presence of sunlight. Green to red shades indicate lower to higher pollution rate" },
+    { id: 5, name: 'PM2.5', checked: false, date: ['2020_01_02', '2020_01_09', '2020_02_15', '2020_02_22', '2020_02_29', '2020_03_09', '2020_03_16', '2020_03_23', '2020_03_30', '2020_04_06', '2020_04_13', '2020_04_20', '2020_04_27', '2020_05_04', '2020_05_11', '2020_05_18', '2020_05_25', '2020_06_01', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_08_06', '2020_08_13', '2020_08_21', '2020_08_28', '2020_09_04', '2020_09_11', '2020_09_18', '2020_09_25', '2020_10_02', '2020_10_12', '2020_10_19', '2020_10_26', '2020_11_02', '2020_11_09', '2020_11_16', '2020_11_23'], description: "Particulate matter (PM 2.5) are tiny inhalable particles in the air that cause serious health issues and reduce visibility (haze) when their levels are elevated. Green to red shades indicate lower to higher pollution rate." },
+    { id: 6, name: 'SO2', checked: false, date: ['2020_01_02', '2020_01_09', '2020_02_15', '2020_02_22', '2020_02_29', '2020_03_09', '2020_03_16', '2020_03_23', '2020_03_30', '2020_04_06', '2020_04_13', '2020_04_20', '2020_04_27', '2020_05_04', '2020_05_11', '2020_05_18', '2020_05_25', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_08_06', '2020_08_13', '2020_08_21', '2020_08_28', '2020_09_04', '2020_09_11', '2020_09_18', '2020_09_25', '2020_10_02', '2020_10_12', '2020_10_19', '2020_10_26', '2020_11_02', '2020_11_09', '2020_11_16', '2020_11_23'], description: "SO2 is emitted by the burning of fossil fuels such as coal, oil, and diesel or other materials that contain sulfur. Green to red shades indicate lower to higher pollution rate." },
+    { id: 7, name: 'LYM8', checked: false, date: ['2020_01_23', '2020_02_08', '2020_02_24', '2020_03_11', '2020_04_12', '2020_04_28', '2020_05_14', '2020_07_17', '2020_09_03', '2020_10_05', '2020_10_21'], description: " Lymburner Total Suspended Matter. LYM8 is an algorithm to find the concentration of Total Suspended Matter (TSM) in mg/L. Paper: Lymburner et al. 2016. Blue to black shades indicates low to high pollution." },
+    { id: 8, name: 'NDSSI', checked: false, date: ['2020_01_23', '2020_02_08', '2020_02_24', '2020_03_11', '2020_04_12', '2020_04_28', '2020_05_14', '2020_07_17', '2020_09_03', '2020_10_05', '2020_10_21'], description: "Normalized Difference Suspended Sediment Index. The NDSSI value ranges from -1 to +1. Values closer to +1 indicate higher concentration of sediment. Paper: Hossain et al. 2010. Blue to black shades indicates low to high pollution" },
+    { id: 9, name: 'QUANG8', checked: false, date: ['2020_01_23', '2020_02_08', '2020_02_24', '2020_03_11', '2020_04_12', '2020_04_28', '2020_05_14', '2020_07_17', '2020_09_03', '2020_10_05', '2020_10_21'], description: " It is a long established fact that a reader will be distracted by the readable content of page when looking at its layout." },
+    { id: 10, name: 'SPM_QUI', checked: false, date: ['2020_01_23', '2020_02_08', '2020_02_24', '2020_03_11', '2020_04_12', '2020_04_28', '2020_05_14', '2020_07_17', '2020_09_03', '2020_10_05', '2020_10_21'], description: " Suspended Particulate Model. SPM_QUI finds the distribution of the suspended particulate matter (SPM) concentration in g/m3. Paper: Zhongfeng Qiu et.al. 2013. Blue to black shades indicates low to high pollution" },
+    { id: 11, name: 'False color', checked: false, date: ['2020_01_23', '2020_02_08', '2020_02_24', '2020_03_11', '2020_04_12', '2020_04_28', '2020_05_14', '2020_07_17', '2020_09_03', '2020_10_05', '2020_10_21'], description: "Bands 5, 6 and 4 (NIR, SWIR1 and RED) are used to create false color good for picking out land from water. Here land appears in shades of orange and green, ice stands out as a vibrant magenta color, and water appears in shades of blue." }
+    ];
 
-      function radioPlaceChangeHandler(type){
-        for(let index=0;index<availablePlaces.length;index++){
-          if(availablePlaces[index].id==type){
-            availablePlaces[index].checked=true;
-            selectedPlace=availablePlaces[index];
-            reset();
-            viewer.camera.flyTo({
-              destination : Cesium.Cartesian3.fromDegrees(selectedPlace.position.west, selectedPlace.position.south,  250000)
-            });
-          }else{
-            availablePlaces[index].checked=false;
-          }
-        }
-      }
+    var availableIndicesOfKolkata = [{ id: 1, name: 'AQI', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_07', '2020_02_14', '2020_02_21', '2020_02_28', '2020_03_06', '2020_03_13', '2020_03_20', '2020_03_27', '2020_04_03', '2020_04_10', '2020_04_17', '2020_04_24', '2020_05_01', '2020_05_08', '2020_05_25', '2020_06_01', '2020_06_08', '2020_06_15', '2020_06_22', '2020_06_29', '2020_07_06', '2020_07_13', '2020_07_21', '2020_07_28', '2020_08_04', '2020_08_11', '2020_08_18', '2020_08_25', '2020_09_01', '2020_09_08', '2020_09_15', '2020_09_22', '2020_09_29', '2020_10_06', '2020_10_13', '2020_10_20', '2020_10_27', '2020_11_03', '2020_11_10', '2020_11_17', '2020_11_24'], description: "Air Quality Index (AQI) is calculated by aggregating other air quality metrics over a specified averaging period. Green to red shades indicate lower to higher AQI values." },
+    { id: 2, name: 'CO', checked: false, date:  ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_07', '2020_02_14', '2020_02_21', '2020_02_28', '2020_03_06', '2020_03_13', '2020_03_20', '2020_03_27', '2020_04_03', '2020_04_10', '2020_04_17', '2020_04_24', '2020_05_01', '2020_05_08', '2020_05_25', '2020_06_01', '2020_06_08', '2020_06_15', '2020_06_22', '2020_06_29', '2020_07_06', '2020_07_13', '2020_07_21', '2020_07_28', '2020_08_04', '2020_08_11', '2020_08_18', '2020_08_25', '2020_09_01', '2020_09_08', '2020_09_15', '2020_09_22', '2020_09_29', '2020_10_06', '2020_10_13', '2020_10_20', '2020_10_27', '2020_11_03', '2020_11_10', '2020_11_17', '2020_11_24'], description: "Carbon monoxide (CO, a colorless, odorless, tasteless, and toxic air pollutant is produced in the incomplete combustion of carbon-containing fuels, such as gasoline, natural gas, oil, coal, and wood. Green to red shades indicate lower to higher pollution rate." },
+    { id: 3, name: 'NOx', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_07', '2020_02_14', '2020_02_21', '2020_02_28', '2020_03_06', '2020_03_13', '2020_03_20', '2020_03_27', '2020_04_03', '2020_04_10', '2020_04_17', '2020_04_24', '2020_05_01', '2020_05_08', '2020_05_25', '2020_06_01', '2020_06_08', '2020_06_15', '2020_06_22', '2020_06_29', '2020_07_06', '2020_07_13', '2020_07_21', '2020_07_28', '2020_08_04', '2020_08_11', '2020_08_18', '2020_08_25', '2020_09_01', '2020_09_08', '2020_09_15', '2020_09_22', '2020_09_29', '2020_10_06', '2020_10_13', '2020_10_20', '2020_10_27', '2020_11_03', '2020_11_10', '2020_11_17', '2020_11_24'], description: " Nitrogen Oxides are a family of poisonous, highly reactive gases formed when fuel is burned at high temperatures. NOx pollution is caused by automobiles, trucks and various non-road vehicles. Green to red shades indicate lower to higher pollution rate." },
+    { id: 4, name: 'O3', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_07', '2020_02_14', '2020_02_21', '2020_02_28', '2020_03_06', '2020_03_13', '2020_03_20', '2020_03_27', '2020_04_03', '2020_04_10', '2020_04_17', '2020_04_24', '2020_05_01', '2020_05_08', '2020_05_25', '2020_06_01', '2020_06_08', '2020_06_15', '2020_06_22', '2020_06_29', '2020_07_06', '2020_07_13', '2020_07_21', '2020_07_28', '2020_08_04', '2020_08_11', '2020_08_18', '2020_08_25', '2020_09_01', '2020_09_08', '2020_09_15', '2020_09_22', '2020_09_29', '2020_10_06', '2020_10_13', '2020_10_20', '2020_10_27', '2020_11_03', '2020_11_10', '2020_11_17', '2020_11_24'], description: "Ozone is not emitted directly into the air, but is created by chemical reactions between oxides of nitrogen (NOx) and volatile organic compounds (VOC). This happens when pollutants emitted by cars, power plants, industrial boilers and other sources chemically react in the presence of sunlight. Green to red shades indicate lower to higher pollution rate" },
+    { id: 5, name: 'PM2.5', checked: false, date:  ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_07', '2020_02_14', '2020_02_21', '2020_02_28', '2020_03_06', '2020_03_13', '2020_03_20', '2020_03_27', '2020_04_03', '2020_04_10', '2020_04_17', '2020_04_24', '2020_05_01', '2020_05_08', '2020_05_25', '2020_06_01', '2020_06_08', '2020_06_15', '2020_06_22', '2020_06_29', '2020_07_06', '2020_07_13', '2020_07_21', '2020_07_28', '2020_08_04', '2020_08_11', '2020_08_18', '2020_08_25', '2020_09_01', '2020_09_08', '2020_09_15', '2020_09_22', '2020_09_29', '2020_10_06', '2020_10_13', '2020_10_20', '2020_10_27', '2020_11_03', '2020_11_10', '2020_11_17', '2020_11_24'], description: "Particulate matter (PM 2.5) are tiny inhalable particles in the air that cause serious health issues and reduce visibility (haze) when their levels are elevated. Green to red shades indicate lower to higher pollution rate." },
+    { id: 6, name: 'SO2', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_07', '2020_02_14', '2020_02_21', '2020_02_28', '2020_03_06', '2020_03_13', '2020_03_20', '2020_03_27', '2020_04_03', '2020_04_10', '2020_04_17', '2020_04_24', '2020_05_01', '2020_05_08', '2020_05_25', '2020_06_01', '2020_06_08', '2020_06_15', '2020_06_22', '2020_06_29', '2020_07_06', '2020_07_13', '2020_07_21', '2020_07_28', '2020_08_04', '2020_08_11', '2020_08_18', '2020_08_25', '2020_09_01', '2020_09_08', '2020_09_15', '2020_09_22', '2020_09_29', '2020_10_06', '2020_10_13', '2020_10_20', '2020_10_27', '2020_11_03', '2020_11_10', '2020_11_17', '2020_11_24'], description: "SO2 is emitted by the burning of fossil fuels such as coal, oil, and diesel or other materials that contain sulfur. Green to red shades indicate lower to higher pollution rate." },
+    { id: 7, name: 'LYM8', checked: false, date:  ['2020_01_01', '2020_01_17', '2020_02_02', '2020_02_18', '2020_03_05', '2020_03_21', '2020_04_06', '2020_05_08', '2020_05_24', '2020_06_09', '2020_06_25', '2020_07_27', '2020_09_13', '2020_09_29'], description: " Lymburner Total Suspended Matter. LYM8 is an algorithm to find the concentration of Total Suspended Matter (TSM) in mg/L. Paper: Lymburner et al. 2016. Blue to black shades indicates low to high pollution." },
+    { id: 8, name: 'NDSSI', checked: false, date:  ['2020_01_01', '2020_01_17', '2020_02_02', '2020_02_18', '2020_03_05', '2020_03_21', '2020_04_06', '2020_05_08', '2020_05_24', '2020_06_09', '2020_06_25', '2020_07_27', '2020_09_13', '2020_09_29'], description: "Normalized Difference Suspended Sediment Index. The NDSSI value ranges from -1 to +1. Values closer to +1 indicate higher concentration of sediment. Paper: Hossain et al. 2010. Blue to black shades indicates low to high pollution" },
+    { id: 9, name: 'QUANG8', checked: false, date:  ['2020_01_01', '2020_01_17', '2020_02_02', '2020_02_18', '2020_03_05', '2020_03_21', '2020_04_06', '2020_05_08', '2020_05_24', '2020_06_09', '2020_06_25', '2020_07_27', '2020_09_13', '2020_09_29'], description: " It is a long established fact that a reader will be distracted by the readable content of page when looking at its layout." },
+    { id: 10, name: 'SPM_QUI', checked: false, date: ['2020_01_01', '2020_01_17', '2020_02_02', '2020_02_18', '2020_03_05', '2020_03_21', '2020_04_06', '2020_05_08', '2020_05_24', '2020_06_09', '2020_06_25', '2020_07_27', '2020_09_13', '2020_09_29'], description: " Suspended Particulate Model. SPM_QUI finds the distribution of the suspended particulate matter (SPM) concentration in g/m3. Paper: Zhongfeng Qiu et.al. 2013. Blue to black shades indicates low to high pollution" },
+    { id: 11, name: 'False color', checked: false, date:['2020_01_01', '2020_01_17', '2020_02_02', '2020_02_18', '2020_03_05', '2020_03_21', '2020_04_06', '2020_05_08', '2020_05_24', '2020_06_09', '2020_06_25', '2020_07_27', '2020_09_13', '2020_09_29'], description: "Bands 5, 6 and 4 (NIR, SWIR1 and RED) are used to create false color good for picking out land from water. Here land appears in shades of orange and green, ice stands out as a vibrant magenta color, and water appears in shades of blue." }
+    ];
 
-      function reset(){
-        pollutionTypes.map(e=>{
-          e.checked=false
-        })
-        availableIndices.map(e=>{
-          e.checked=false
-        })
-        document.getElementById('pollutions').innerHTML=radioPollutions();
-        document.getElementById('indices').innerHTML=radioIndices();
-        document.getElementById('indices-wrapper').style.display='none';
-        document.getElementById('dynamicslider').innerHTML="";
-        document.getElementById('description').innerHTML="";
-        let imageToBeDisplayed="";
-        ImageryPlotting(imageToBeDisplayed);
-        geojsonPlotting(imageToBeDisplayed);
-      }
-    
-      function radioPollutions(){
-        let radiobutton="";
-        for(let index=0;index<pollutionTypes.length;index++){
-          let checked=pollutionTypes[index].checked?"checked=" + pollutionTypes[index].checked :''
-          radiobutton=radiobutton+"<label class=radio-container>" + pollutionTypes[index].name +
-                            " <input type=radio "+ checked + " name=pollutions value='"+pollutionTypes[index].id + "' onclick=radioPollutionChangeHandler(this.value);>" +
-                            " <span class=checkmark></span>"+
-                          " </label>"
-          if(checked){
-            pollutionTypes[index].placeId=selectedPlace.id
-            selectedPollution=pollutionTypes[index];
-            indicesToShow=pollutionTypes[index].indices;
-            document.getElementById('indices').innerHTML=radioIndices();
-            document.getElementById('indices-wrapper').style.display='block';
-          }
-        }
-        return radiobutton;
-      }
+    var availableIndicesOfDelhi = [{ id: 1, name: 'AQI', checked: false, date:['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_06', '2020_02_13', '2020_02_20', '2020_02_27', '2020_03_05', '2020_03_12', '2020_03_19', '2020_03_26', '2020_04_02', '2020_04_09', '2020_04_16', '2020_04_23', '2020_04_30', '2020_05_07', '2020_05_14', '2020_05_21', '2020_05_28', '2020_06_04', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_26'], description: "Air Quality Index (AQI) is calculated by aggregating other air quality metrics over a specified averaging period. Green to red shades indicate lower to higher AQI values." },
+    { id: 2, name: 'CO', checked: false, date:['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_06', '2020_02_13', '2020_02_20', '2020_02_27', '2020_03_05', '2020_03_12', '2020_03_19', '2020_03_26', '2020_04_02', '2020_04_09', '2020_04_16', '2020_04_23', '2020_04_30', '2020_05_07', '2020_05_14', '2020_05_21', '2020_05_28', '2020_06_04', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_26'], description: "Carbon monoxide (CO, a colorless, odorless, tasteless, and toxic air pollutant is produced in the incomplete combustion of carbon-containing fuels, such as gasoline, natural gas, oil, coal, and wood. Green to red shades indicate lower to higher pollution rate." },
+    { id: 3, name: 'NOx', checked: false, date:['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_06', '2020_02_13', '2020_02_20', '2020_02_27', '2020_03_05', '2020_03_12', '2020_03_19', '2020_03_26', '2020_04_02', '2020_04_09', '2020_04_16', '2020_04_23', '2020_04_30', '2020_05_07', '2020_05_14', '2020_05_21', '2020_05_28', '2020_06_04', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_26'], description: " Nitrogen Oxides are a family of poisonous, highly reactive gases formed when fuel is burned at high temperatures. NOx pollution is caused by automobiles, trucks and various non-road vehicles. Green to red shades indicate lower to higher pollution rate." },
+    { id: 4, name: 'O3', checked: false, date: ['2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_26'], description: "Ozone is not emitted directly into the air, but is created by chemical reactions between oxides of nitrogen (NOx) and volatile organic compounds (VOC). This happens when pollutants emitted by cars, power plants, industrial boilers and other sources chemically react in the presence of sunlight. Green to red shades indicate lower to higher pollution rate" },
+    { id: 5, name: 'PM2.5', checked: false, date:['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_06', '2020_02_13', '2020_02_20', '2020_02_27', '2020_03_05', '2020_03_12', '2020_03_19', '2020_03_26', '2020_04_02', '2020_04_09', '2020_04_16', '2020_04_23', '2020_04_30', '2020_05_07', '2020_05_14', '2020_05_21', '2020_05_28', '2020_06_04', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_26'], description: "Particulate matter (PM 2.5) are tiny inhalable particles in the air that cause serious health issues and reduce visibility (haze) when their levels are elevated. Green to red shades indicate lower to higher pollution rate." },
+    { id: 6, name: 'SO2', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_16', '2020_01_23', '2020_01_30', '2020_02_06', '2020_02_13', '2020_02_20', '2020_02_27', '2020_03_05', '2020_03_12', '2020_03_19', '2020_03_26', '2020_04_02', '2020_04_09', '2020_04_16', '2020_04_23', '2020_04_30', '2020_05_07', '2020_05_14', '2020_05_21', '2020_05_28', '2020_06_04', '2020_06_11', '2020_06_18', '2020_06_25', '2020_07_02', '2020_07_09', '2020_07_16', '2020_07_23', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_26'], description: "SO2 is emitted by the burning of fossil fuels such as coal, oil, and diesel or other materials that contain sulfur. Green to red shades indicate lower to higher pollution rate." },
+    { id: 7, name: 'LYM8', checked: false, date: ['2020_01_25', '2020_02_10', '2020_02_26', '2020_03_13', '2020_03_29', '2020_04_30', '2020_05_16', '2020_06_01', '2020_06_17', '2020_07_03', '2020_09_05', '2020_09_21', '2020_10_07', '2020_10_23'], description: " Lymburner Total Suspended Matter. LYM8 is an algorithm to find the concentration of Total Suspended Matter (TSM) in mg/L. Paper: Lymburner et al. 2016. Blue to black shades indicates low to high pollution." },
+    { id: 8, name: 'NDSSI', checked: false, date:  ['2020_01_25', '2020_02_10', '2020_02_26', '2020_03_13', '2020_03_29', '2020_04_30', '2020_05_16', '2020_06_01', '2020_06_17', '2020_07_03', '2020_09_05', '2020_09_21', '2020_10_07', '2020_10_23'], description: "Normalized Difference Suspended Sediment Index. The NDSSI value ranges from -1 to +1. Values closer to +1 indicate higher concentration of sediment. Paper: Hossain et al. 2010. Blue to black shades indicates low to high pollution" },
+    { id: 9, name: 'QUANG8', checked: false, date: ['2020_01_25', '2020_02_10', '2020_02_26', '2020_03_13', '2020_03_29', '2020_04_30', '2020_05_16', '2020_06_01', '2020_06_17', '2020_07_03', '2020_09_05', '2020_09_21', '2020_10_07', '2020_10_23'], description: " It is a long established fact that a reader will be distracted by the readable content of page when looking at its layout." },
+    { id: 10, name: 'SPM_QUI', checked: false, date:  ['2020_01_25', '2020_02_10', '2020_02_26', '2020_03_13', '2020_03_29', '2020_04_30', '2020_05_16', '2020_06_01', '2020_06_17', '2020_07_03', '2020_09_05', '2020_09_21', '2020_10_07', '2020_10_23'], description: " Suspended Particulate Model. SPM_QUI finds the distribution of the suspended particulate matter (SPM) concentration in g/m3. Paper: Zhongfeng Qiu et.al. 2013. Blue to black shades indicates low to high pollution" },
+    { id: 11, name: 'False color', checked: false, date: ['2020_01_25', '2020_02_10', '2020_02_26', '2020_03_13', '2020_03_29', '2020_04_30', '2020_05_16', '2020_06_01', '2020_06_17', '2020_07_03', '2020_09_05', '2020_09_21', '2020_10_07', '2020_10_23'], description: "Bands 5, 6 and 4 (NIR, SWIR1 and RED) are used to create false color good for picking out land from water. Here land appears in shades of orange and green, ice stands out as a vibrant magenta color, and water appears in shades of blue." }
+    ];
 
-      function radioPollutionChangeHandler(type) {
-        for(let index=0;index<pollutionTypes.length;index++){
-          if(pollutionTypes[index].id==type){
-            pollutionTypes[index].checked=true;
-            pollutionTypes[index].placeId=selectedPlace.id;
-            selectedPollution=pollutionTypes[index];
-            indicesToShow=pollutionTypes[index].indices;
-            document.getElementById('dynamicslider').innerHTML='';
-            document.getElementById('description').innerHTML='';
-            document.getElementById('indices').innerHTML=radioIndices();
-            document.getElementById('indices-wrapper').style.display='block';
-            ImageryPlotting("");
-            geojsonPlotting("")
-          }else{
-            pollutionTypes[index].checked=false;
-          }
+    var availableIndicesOfHyderabad = [{ id: 1, name: 'AQI', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_20', '2020_01_28', '2020_02_05', '2020_02_12', '2020_02_19', '2020_02_26', '2020_03_04', '2020_03_11', '2020_03_18', '2020_04_14', '2020_04_21', '2020_04_28', '2020_05_05', '2020_05_12', '2020_05_19', '2020_05_26', '2020_06_02', '2020_06_09', '2020_06_16', '2020_06_23', '2020_06_30', '2020_07_07', '2020_07_14', '2020_07_21', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_26'], description: "Air Quality Index (AQI) is calculated by aggregating other air quality metrics over a specified averaging period. Green to red shades indicate lower to higher AQI values." },
+    { id: 2, name: 'CO', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_20', '2020_01_28', '2020_02_05', '2020_02_12', '2020_02_19', '2020_02_26', '2020_03_04', '2020_03_11', '2020_03_18', '2020_04_14', '2020_04_21', '2020_04_28', '2020_05_05', '2020_05_12', '2020_05_19', '2020_05_26', '2020_06_02', '2020_06_09', '2020_06_16', '2020_06_23', '2020_06_30', '2020_07_07', '2020_07_14', '2020_07_21', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_26'], description: "Carbon monoxide (CO, a colorless, odorless, tasteless, and toxic air pollutant is produced in the incomplete combustion of carbon-containing fuels, such as gasoline, natural gas, oil, coal, and wood. Green to red shades indicate lower to higher pollution rate." },
+    { id: 3, name: 'NOx', checked: false, date:  ['2020_01_02', '2020_01_09', '2020_01_20', '2020_01_28', '2020_02_05', '2020_02_12', '2020_02_19', '2020_02_26', '2020_03_04', '2020_03_11', '2020_03_18', '2020_04_14', '2020_04_21', '2020_04_28', '2020_05_05', '2020_05_12', '2020_05_19', '2020_05_26', '2020_06_02', '2020_06_09', '2020_06_16', '2020_06_23', '2020_06_30', '2020_07_07', '2020_07_14', '2020_07_21', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_26'], description: " Nitrogen Oxides are a family of poisonous, highly reactive gases formed when fuel is burned at high temperatures. NOx pollution is caused by automobiles, trucks and various non-road vehicles. Green to red shades indicate lower to higher pollution rate." },
+    { id: 4, name: 'O3', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_20', '2020_01_28', '2020_02_05', '2020_02_12', '2020_02_19', '2020_02_26', '2020_03_04', '2020_03_11', '2020_03_18', '2020_04_14', '2020_04_21', '2020_04_28', '2020_05_05', '2020_05_12', '2020_05_19', '2020_05_26', '2020_06_02', '2020_06_09', '2020_06_16', '2020_06_23', '2020_06_30', '2020_07_07', '2020_07_14', '2020_07_21', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_26'], description: "Ozone is not emitted directly into the air, but is created by chemical reactions between oxides of nitrogen (NOx) and volatile organic compounds (VOC). This happens when pollutants emitted by cars, power plants, industrial boilers and other sources chemically react in the presence of sunlight. Green to red shades indicate lower to higher pollution rate" },
+    { id: 5, name: 'PM2.5', checked: false, date:  ['2020_01_02', '2020_01_09', '2020_01_20', '2020_01_28', '2020_02_05', '2020_02_12', '2020_02_19', '2020_02_26', '2020_03_04', '2020_03_11', '2020_03_18', '2020_04_14', '2020_04_21', '2020_04_28', '2020_05_05', '2020_05_12', '2020_05_19', '2020_05_26', '2020_06_02', '2020_06_09', '2020_06_16', '2020_06_23', '2020_06_30', '2020_07_07', '2020_07_14', '2020_07_21', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_26'], description: "Particulate matter (PM 2.5) are tiny inhalable particles in the air that cause serious health issues and reduce visibility (haze) when their levels are elevated. Green to red shades indicate lower to higher pollution rate." },
+    { id: 6, name: 'SO2', checked: false, date: ['2020_01_02', '2020_01_09', '2020_01_20', '2020_01_28', '2020_02_05', '2020_02_12', '2020_02_19', '2020_02_26', '2020_03_04', '2020_03_11', '2020_03_18', '2020_04_14', '2020_04_21', '2020_04_28', '2020_05_05', '2020_05_12', '2020_05_19', '2020_05_26', '2020_06_02', '2020_06_09', '2020_06_16', '2020_06_23', '2020_06_30', '2020_07_07', '2020_07_14', '2020_07_21', '2020_07_30', '2020_08_06', '2020_08_13', '2020_08_20', '2020_08_27', '2020_09_03', '2020_09_10', '2020_09_17', '2020_09_24', '2020_10_01', '2020_10_08', '2020_10_15', '2020_10_22', '2020_10_29', '2020_11_05', '2020_11_12', '2020_11_19', '2020_11_26'], description: "SO2 is emitted by the burning of fossil fuels such as coal, oil, and diesel or other materials that contain sulfur. Green to red shades indicate lower to higher pollution rate." },
+    { id: 7, name: 'LYM8', checked: false, date: ['2020_01_11', '2020_01_27', '2020_02_12', '2020_02_28', '2020_03_15', '2020_03_31', '2020_04_16', '2020_05_02', '2020_05_18', '2020_07_21', '2020_09_07', '2020_10_09', '2020_10_25'], description: " Lymburner Total Suspended Matter. LYM8 is an algorithm to find the concentration of Total Suspended Matter (TSM) in mg/L. Paper: Lymburner et al. 2016. Blue to black shades indicates low to high pollution." },
+    { id: 8, name: 'NDSSI', checked: false, date:['2020_01_11', '2020_01_27', '2020_02_12', '2020_02_28', '2020_03_15', '2020_03_31', '2020_04_16', '2020_05_02', '2020_05_18', '2020_07_21', '2020_09_07', '2020_10_09', '2020_10_25'], description: "Normalized Difference Suspended Sediment Index. The NDSSI value ranges from -1 to +1. Values closer to +1 indicate higher concentration of sediment. Paper: Hossain et al. 2010. Blue to black shades indicates low to high pollution" },
+    { id: 9, name: 'QUANG8', checked: false, date: ['2020_01_11', '2020_01_27', '2020_02_12', '2020_02_28', '2020_03_15', '2020_03_31', '2020_04_16', '2020_05_02', '2020_05_18', '2020_07_21', '2020_09_07', '2020_10_09', '2020_10_25'], description: " It is a long established fact that a reader will be distracted by the readable content of page when looking at its layout." },
+    { id: 10, name: 'SPM_QUI', checked: false, date:['2020_01_11', '2020_01_27', '2020_02_12', '2020_02_28', '2020_03_15', '2020_03_31', '2020_04_16', '2020_05_02', '2020_05_18', '2020_07_21', '2020_09_07', '2020_10_09', '2020_10_25'], description: " Suspended Particulate Model. SPM_QUI finds the distribution of the suspended particulate matter (SPM) concentration in g/m3. Paper: Zhongfeng Qiu et.al. 2013. Blue to black shades indicates low to high pollution" },
+    { id: 11, name: 'False color', checked: false, date:['2020_01_11', '2020_01_27', '2020_02_12', '2020_02_28', '2020_03_15', '2020_03_31', '2020_04_16', '2020_05_02', '2020_05_18', '2020_07_21', '2020_09_07', '2020_10_09', '2020_10_25'], description: "Bands 5, 6 and 4 (NIR, SWIR1 and RED) are used to create false color good for picking out land from water. Here land appears in shades of orange and green, ice stands out as a vibrant magenta color, and water appears in shades of blue." }
+    ];
+
+    let radioCheckedIndex = 0;
+    let selectedPollution = {};
+    let selectedPlace = {};
+    let sliderChange = "";
+    let checkBoxIndices = "";
+    let indicesToShow = [];
+    var viewer = null;
+    var layers = null;
+    var layer = null;
+    let indicesCorrespondingToSelectedPlace = [];
+
+    document.getElementById('indices-wrapper').style.display = 'none';
+    document.getElementById('places').innerHTML = radioPlaces();
+    document.getElementById('pollutions').innerHTML = radioPollutions();
+
+    function radioPlaces() {
+      let radiobutton = "";
+      for (let index = 0; index < availablePlaces.length; index++) {
+        let checked = availablePlaces[index].checked ? "checked=" + availablePlaces[index].checked : ''
+        radiobutton = radiobutton + "<label class=radio-container>" + availablePlaces[index].name +
+          " <input type=radio " + checked + " name=place value='" + availablePlaces[index].id + "' onclick=radioPlaceChangeHandler(this.value);>" +
+          " <span class=checkmark></span>" +
+          " </label>"
+        if (checked) {
+          selectedPlace = availablePlaces[index];
+          neededIndices(availablePlaces[index].id);
         }
       }
-     
-      function radioIndices(){
-        let radiobutton = "";
-        for (let index = 0; index < availableIndices.length; index++) {
-          for (let indicesToShowId = 0; indicesToShowId < indicesToShow.length; indicesToShowId++) {
-            if (availableIndices[index].id == indicesToShow[indicesToShowId]) {
-              let checked = availableIndices[index].checked ? "checked=" + availableIndices[index].checked : ''
-              radiobutton = radiobutton + "<label class=radio-container>" + availableIndices[index].name +
-                " <input type=radio " + checked + " name=indices value='" + availableIndices[index].id + "' onclick=radioIndicesChangeHandler(this.value);>" +
-                " <span class=checkmark></span>" +
-                " </label>"
-              if (checked) {
-                radioCheckedIndex=index;
-                document.getElementById('dynamicslider').innerHTML=dynamicSlider(index);
-                document.getElementById('description').innerHTML=dynamicDescription(index);
-              }
+      return radiobutton;
+    }
+
+    function radioPlaceChangeHandler(type) {
+      for (let index = 0; index < availablePlaces.length; index++) {
+        if (availablePlaces[index].id == type) {
+          availablePlaces[index].checked = true;
+          selectedPlace = availablePlaces[index];
+          neededIndices(availablePlaces[index].id);
+          reset();
+          viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(selectedPlace.position.west, selectedPlace.position.south, 250000)
+          });
+        } else {
+          availablePlaces[index].checked = false;
+        }
+      }
+    }
+
+    function reset() {
+      pollutionTypes.map(e => {
+        e.checked = false
+      })
+      indicesCorrespondingToSelectedPlace.map(e => {
+        e.checked = false
+      })
+      document.getElementById('pollutions').innerHTML = radioPollutions();
+      document.getElementById('indices').innerHTML = radioIndices();
+      document.getElementById('indices-wrapper').style.display = 'none';
+      document.getElementById('dynamicslider').innerHTML = "";
+      document.getElementById('description').innerHTML = "";
+      let imageToBeDisplayed = "";
+      ImageryPlotting(imageToBeDisplayed);
+      geojsonPlotting(imageToBeDisplayed);
+    }
+
+    function radioPollutions() {
+      let radiobutton = "";
+      for (let index = 0; index < pollutionTypes.length; index++) {
+        let checked = pollutionTypes[index].checked ? "checked=" + pollutionTypes[index].checked : ''
+        radiobutton = radiobutton + "<label class=radio-container>" + pollutionTypes[index].name +
+          " <input type=radio " + checked + " name=pollutions value='" + pollutionTypes[index].id + "' onclick=radioPollutionChangeHandler(this.value);>" +
+          " <span class=checkmark></span>" +
+          " </label>"
+        if (checked) {
+          pollutionTypes[index].placeId = selectedPlace.id
+          selectedPollution = pollutionTypes[index];
+          indicesToShow = pollutionTypes[index].indices;
+          document.getElementById('indices').innerHTML = radioIndices();
+          document.getElementById('indices-wrapper').style.display = 'block';
+        }
+      }
+      return radiobutton;
+    }
+
+    function radioPollutionChangeHandler(type) {
+      for (let index = 0; index < pollutionTypes.length; index++) {
+        if (pollutionTypes[index].id == type) {
+          pollutionTypes[index].checked = true;
+          pollutionTypes[index].placeId = selectedPlace.id;
+          selectedPollution = pollutionTypes[index];
+          indicesToShow = pollutionTypes[index].indices;
+          document.getElementById('dynamicslider').innerHTML = '';
+          document.getElementById('description').innerHTML = '';
+          document.getElementById('indices').innerHTML = radioIndices();
+          document.getElementById('indices-wrapper').style.display = 'block';
+          ImageryPlotting("");
+          geojsonPlotting("")
+        } else {
+          pollutionTypes[index].checked = false;
+        }
+      }
+    }
+
+    function radioIndices() {
+      let radiobutton = "";
+      for (let index = 0; index < indicesCorrespondingToSelectedPlace.length; index++) {
+        for (let indicesToShowId = 0; indicesToShowId < indicesToShow.length; indicesToShowId++) {
+          if (indicesCorrespondingToSelectedPlace[index].id == indicesToShow[indicesToShowId]) {
+            let checked = indicesCorrespondingToSelectedPlace[index].checked ? "checked=" + indicesCorrespondingToSelectedPlace[index].checked : ''
+            radiobutton = radiobutton + "<label class=radio-container>" + indicesCorrespondingToSelectedPlace[index].name +
+              " <input type=radio " + checked + " name=indices value='" + indicesCorrespondingToSelectedPlace[index].id + "' onclick=radioIndicesChangeHandler(this.value);>" +
+              " <span class=checkmark></span>" +
+              " </label>"
+            if (checked) {
+              radioCheckedIndex = index;
+              document.getElementById('dynamicslider').innerHTML = dynamicSlider(index);
+              document.getElementById('description').innerHTML = dynamicDescription(index);
             }
           }
         }
-        return radiobutton;
       }
+      return radiobutton;
+    }
 
-      function radioIndicesChangeHandler(type) {
-        for(let index=0;index<availableIndices.length;index++){
-          if(availableIndices[index].id==type){
-            availableIndices[index].checked=true;
-            radioCheckedIndex=index;
-            document.getElementById('dynamicslider').innerHTML=dynamicSlider(index);
-            document.getElementById('description').innerHTML=dynamicDescription(index);
-            if(selectedPollution.id!=1){
-              let imageToBeDisplayed=selectedPlace.name+'/'+selectedPollution.name+'/'+availableIndices[radioCheckedIndex].name+'/'+availableIndices[radioCheckedIndex].date[0];
-              console.log(imageToBeDisplayed,"image to be displayed");
-              ImageryPlotting(imageToBeDisplayed);
-            }else{
-              let geojsonToBePlotted=selectedPlace.name+'/'+selectedPollution.name+'/'+availableIndices[radioCheckedIndex].name+'/'+availableIndices[radioCheckedIndex].date[0];
-              console.log(geojsonToBePlotted,"geojson to be plotted");
-              geojsonPlotting(geojsonToBePlotted);
-            }  
-          }else{
-            availableIndices[index].checked=false;
+    function radioIndicesChangeHandler(type) {
+      for (let index = 0; index < indicesCorrespondingToSelectedPlace.length; index++) {
+        if (indicesCorrespondingToSelectedPlace[index].id == type) {
+          indicesCorrespondingToSelectedPlace[index].checked = true;
+          radioCheckedIndex = index;
+          document.getElementById('dynamicslider').innerHTML = dynamicSlider(index);
+          document.getElementById('description').innerHTML = dynamicDescription(index);
+          if (selectedPollution.id != 1) {
+            let imageToBeDisplayed = selectedPlace.name + '/' + selectedPollution.name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].date[0];
+            console.log(imageToBeDisplayed, "image to be displayed");
+            ImageryPlotting(imageToBeDisplayed);
+          } else {
+            let geojsonToBePlotted = selectedPlace.name + '/' + selectedPollution.name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].date[0];
+            console.log(geojsonToBePlotted, "geojson to be plotted");
+            geojsonPlotting(geojsonToBePlotted);
           }
+        } else {
+          indicesCorrespondingToSelectedPlace[index].checked = false;
         }
       }
+    }
 
-      function dynamicDescription(index){
-        let description= "<div class=has-decription><h2>Description</h2>"+ availableIndices[index].description +"</div>"
-        return description;
-      }
+    function dynamicDescription(index) {
+      let description = "<div class=has-decription><h2>Description</h2>" + indicesCorrespondingToSelectedPlace[index].description + "</div>"
+      return description;
+    }
 
-      function dynamicSlider(index){
-        let max=availableIndices[index].date.length-1;
-        return "<div id=slider class=progress-inner >" + sliderValueToDate(0) +"</div>" +
-                "<div class=my-0>"+ "<form class=color-orange>" + 
-                "<input class=w-100 id=range1 name=range1 type=range min=0 max="+ max +" value=0 oninput=sliderChangeHandler(this.value,'slider') ></form></div>"
-      }
+    function dynamicSlider(index) {
+      let max = indicesCorrespondingToSelectedPlace[index].date.length - 1;
+      return "<div id=slider class=progress-inner >" + sliderValueToDate(0) + "</div>" +
+        "<div class=my-0>" + "<form class=color-orange>" +
+        "<input class=w-100 id=range1 name=range1 type=range min=0 max=" + max + " value=0 oninput=sliderChangeHandler(this.value,'slider') ></form></div>"
+    }
 
-      function sliderValueToDate(sliderValue) {
-        var formatedDate = (availableIndices[radioCheckedIndex].date[sliderValue]).replace(/_/g, "-");
-        return formatedDate;
-      }
-  
-      function sliderChangeHandler(valueFromSlider, targetDivId) {
-        var formatedDate = sliderValueToDate(valueFromSlider);
-        document.getElementById(targetDivId).innerHTML = formatedDate;
-        if(selectedPollution.id!=1){
-              let imageToBeDisplayed=selectedPlace.name+'/'+selectedPollution.name+'/'+availableIndices[radioCheckedIndex].name+'/'+formatedDate.replace(/-/g, "_");
-              ImageryPlotting(imageToBeDisplayed);
-        }else{
-              let geojsonToBePlotted=selectedPlace.name+'/'+selectedPollution.name+'/'+availableIndices[radioCheckedIndex].name+'/'+formatedDate.replace(/-/g, "_");
-              geojsonPlotting(geojsonToBePlotted);
-        }
-      }
+    function sliderValueToDate(sliderValue) {
+      var formatedDate = (indicesCorrespondingToSelectedPlace[radioCheckedIndex].date[sliderValue]).replace(/_/g, "-");
+      return formatedDate;
+    }
 
-      function startup(Cesium) {
-        "use strict";
-        let images = [];
-       
-        // const fs = require('fs');
-        // let testFolder='./images_environmental_impacts/Chennai/'
-        // fs.readdirSync(testFolder).forEach(file => {
-        //   console.log(file);
-        // });
-        for (let place = 0; place < availablePlaces.length; place++) {
-          for (let pollution = 0; pollution < pollutionTypes.length; pollution++) {
-            for (let indice = 0; indice < availableIndices.length; indice++) {
-              for (let indicesWeHave = 0; indicesWeHave < pollutionTypes[pollution].indices.length; indicesWeHave++) {
-                if (availableIndices[indice].id == pollutionTypes[pollution].indices[indicesWeHave]) {
-                  for (let date = 0; date < availableIndices[indice].date.length; date++) {
-                    let eachImage = ".\\images_environmental_impacts\\" + availablePlaces[place].name + "\\" + pollutionTypes[pollution].name + "\\" + availableIndices[indice].name + "\\" + availableIndices[indice].date[date] + ".png"
-                    images.push(eachImage);
-                  }
+    function sliderChangeHandler(valueFromSlider, targetDivId) {
+      var formatedDate = sliderValueToDate(valueFromSlider);
+      document.getElementById(targetDivId).innerHTML = formatedDate;
+      if (selectedPollution.id != 1) {
+        let imageToBeDisplayed = selectedPlace.name + '/' + selectedPollution.name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].name + '/' + formatedDate.replace(/-/g, "_");
+        ImageryPlotting(imageToBeDisplayed);
+      } else {
+        let geojsonToBePlotted = selectedPlace.name + '/' + selectedPollution.name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].name + '/' + formatedDate.replace(/-/g, "_");
+        geojsonPlotting(geojsonToBePlotted);
+      }
+    }
+
+    function neededIndices(place) {
+      switch (place) {
+        case 1:
+          indicesCorrespondingToSelectedPlace = availableIndicesOfChennai;
+          break;
+        case 2:
+          indicesCorrespondingToSelectedPlace = availableIndicesOfMumbai;
+          break;
+        case 3:
+          indicesCorrespondingToSelectedPlace = availableIndicesOfKolkata;
+          break;
+        case 4:
+          indicesCorrespondingToSelectedPlace = availableIndicesOfDelhi;
+          break;
+        case 5:
+          indicesCorrespondingToSelectedPlace = availableIndicesOfHyderabad;
+          break;
+        default:
+          break;
+      }
+    }
+
+    function startup(Cesium) {
+      "use strict";
+      let images = [];
+
+      for (let place = 0; place < availablePlaces.length; place++) {
+        for (let pollution = 0; pollution < pollutionTypes.length; pollution++) {
+          for (let indice = 0; indice < indicesCorrespondingToSelectedPlace.length; indice++) {
+            for (let indicesWeHave = 0; indicesWeHave < pollutionTypes[pollution].indices.length; indicesWeHave++) {
+              if (indicesCorrespondingToSelectedPlace[indice].id == pollutionTypes[pollution].indices[indicesWeHave]) {
+                for (let date = 0; date < indicesCorrespondingToSelectedPlace[indice].date.length; date++) {
+                  let eachImage = ".\\images_environmental_impacts\\" + availablePlaces[place].name + "\\" + pollutionTypes[pollution].name + "\\" + indicesCorrespondingToSelectedPlace[indice].name + "\\" + indicesCorrespondingToSelectedPlace[indice].date[date] + ".png"
+                  images.push(eachImage);
                 }
               }
             }
           }
         }
-
-        preloadImages(images);
-
-        Cesium.Ion.defaultAccessToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2NzlmYTEzYi1mMmQ5LTQwMmEtYTM3ZS1lNjMxZmZhODNjNDIiLCJpZCI6MzE1NDQsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1OTU1NjUzNTZ9.T1pgxh_vcoOcPawkwQtu96b6hG_SYaRJnaSMbdDASv0";
-          viewer = new Cesium.Viewer("cesiumContainer", {
-          homeButton: false,
-          fullscreenButton: false,
-          baseLayerPicker: true,
-          animation: false,
-          geocoder: false,
-          infoBox: false,
-          timeline: false,
-          sceneModePicker: false,
-          navigationHelpButton: false,
-          terrainProvider: Cesium.createWorldTerrain(),
-        });
-        var initialPosition = new Cesium.Cartesian3.fromDegrees(0,0,0,0);
-        var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(
-          0.0,
-          -40,
-          0.0
-        );
-        var homeCameraView = {
-          destination: initialPosition,
-          orientation: {
-            heading: initialOrientation.heading,
-            pitch: initialOrientation.pitch,
-            roll: initialOrientation.roll,
-          },
-        };
-        viewer.scene.camera.setView(homeCameraView);
-        viewer.clock.shouldAnimate = false;
       }
 
-      function preloadImages(array) {
-        if (!preloadImages.list) {
-          preloadImages.list = [];
-        }
-        var list = preloadImages.list;
-        for (var i = 0; i < array.length; i++) {
-          var img = new Image();
-          img.onload = function () {
-            var index = list.indexOf(this);
-            if (index !== -1) {
-              list.splice(index, 1);
-            }
+      preloadImages(images);
+
+      Cesium.Ion.defaultAccessToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2NzlmYTEzYi1mMmQ5LTQwMmEtYTM3ZS1lNjMxZmZhODNjNDIiLCJpZCI6MzE1NDQsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1OTU1NjUzNTZ9.T1pgxh_vcoOcPawkwQtu96b6hG_SYaRJnaSMbdDASv0";
+      viewer = new Cesium.Viewer("cesiumContainer", {
+        homeButton: false,
+        fullscreenButton: false,
+        baseLayerPicker: true,
+        animation: false,
+        geocoder: false,
+        infoBox: false,
+        timeline: false,
+        sceneModePicker: false,
+        navigationHelpButton: false,
+        terrainProvider: Cesium.createWorldTerrain(),
+      });
+      var initialPosition = new Cesium.Cartesian3.fromDegrees(0, 0, 0, 0);
+      var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(
+        0.0,
+        -40,
+        0.0
+      );
+      var homeCameraView = {
+        destination: initialPosition,
+        orientation: {
+          heading: initialOrientation.heading,
+          pitch: initialOrientation.pitch,
+          roll: initialOrientation.roll,
+        },
+      };
+      viewer.scene.camera.setView(homeCameraView);
+      viewer.clock.shouldAnimate = false;
+    }
+
+    function preloadImages(array) {
+      if (!preloadImages.list) {
+        preloadImages.list = [];
+      }
+      var list = preloadImages.list;
+      for (var i = 0; i < array.length; i++) {
+        var img = new Image();
+        img.onload = function () {
+          var index = list.indexOf(this);
+          if (index !== -1) {
+            list.splice(index, 1);
           }
-          list.push(img);
-          img.src = array[i];
         }
+        list.push(img);
+        img.src = array[i];
       }
+    }
 
-      function ImageryPlotting(imageType) {
-        console.log(imageType,"imagetype");
-        layers = viewer.scene.imageryLayers;
-        layers.remove(layer);
-        if (imageType != null) {
-          var imagePath = `./images_environmental_impacts/${imageType}.png`; 
-          layer = layers.addImageryProvider(
-            new Cesium.SingleTileImageryProvider({
-              url: imagePath,
-              rectangle: Cesium.Rectangle.fromDegrees(
-                selectedPlace.position.west,
-                selectedPlace.position.south ,
-                selectedPlace.position.east,
-                selectedPlace.position.north
-              ),
-            })
-          );
-          layers.add(layer);
-        }
+    function ImageryPlotting(imageType) {
+      console.log(imageType, "imagetype");
+      layers = viewer.scene.imageryLayers;
+      layers.remove(layer);
+      if (imageType != null) {
+        var imagePath = `./images_environmental_impacts/${imageType}.png`;
+        layer = layers.addImageryProvider(
+          new Cesium.SingleTileImageryProvider({
+            url: imagePath,
+            rectangle: Cesium.Rectangle.fromDegrees(
+              selectedPlace.position.west,
+              selectedPlace.position.south,
+              selectedPlace.position.east,
+              selectedPlace.position.north
+            ),
+          })
+        );
+        layers.add(layer);
       }
+    }
 
-      function geojsonPlotting(geojson){
-        let path=`./images_environmental_impacts/${geojson}.geojson`;
-        console.log(path,"path");
-        viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
-          stroke: Cesium.Color.HOTPINK,
-          fill: Cesium.Color.PINK,
-          strokeWidth: 3
-        }));
-      }
+    function geojsonPlotting(geojson) {
+      let path = `./images_environmental_impacts/${geojson}.geojson`;
+      console.log(path, "path");
+      viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
+        stroke: Cesium.Color.HOTPINK,
+        fill: Cesium.Color.PINK,
+        strokeWidth: 3
+      }));
+    }
 
-    </script>
+  </script>
 </body>
+
 </html>
