@@ -473,7 +473,7 @@
     }
 
     function removeGeoJson(){
-      let path = `./images_environmental_impacts/${geojson}.geojson`;
+      let path = `./images_environmental_impacts/''.geojson`;
       console.log(path, "path");
       viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
         stroke: Cesium.Color.HOTPINK,
