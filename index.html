@@ -471,22 +471,15 @@
         layers.add(layer);
       }
     }
-
+    let addedGeoJSon;
     function removeGeoJson(){
-      let path = `./images_environmental_impacts/''.geojson`;
-      console.log(path, "path");
-      viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
-        stroke: Cesium.Color.HOTPINK,
-        fill: Cesium.Color.PINK,
-        strokeWidth: 3,
-        show:false
-      }));
+      viewer.dataSources.remove(addedGeoJSon, true);
     }
 
     function geojsonPlotting(geojson) {
       let path = `./images_environmental_impacts/${geojson}.geojson`;
       console.log(path, "path");
-      viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
+      addedGeoJSon=viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
         stroke: Cesium.Color.HOTPINK,
         fill: Cesium.Color.PINK,
         strokeWidth: 3,
