@@ -207,10 +207,10 @@
     function radioPlaceChangeHandler(type) {
       for (let index = 0; index < availablePlaces.length; index++) {
         if (availablePlaces[index].id == type) {
-          reset();
           availablePlaces[index].checked = true;
           selectedPlace = availablePlaces[index];
           neededIndices(availablePlaces[index].id);
+          reset();
           viewer.camera.flyTo({
             destination: Cesium.Cartesian3.fromDegrees(selectedPlace.position.west, selectedPlace.position.south, 250000)
           });
