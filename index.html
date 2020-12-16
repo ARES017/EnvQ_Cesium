@@ -474,15 +474,18 @@
     let addedGeoJSon;
     function removeGeoJson(){
       viewer.dataSources.remove(addedGeoJSon, true);
+      delete addedGeoJSon;
     }
 
     function geojsonPlotting(geojson) {
       let path = `./images_environmental_impacts/${geojson}.geojson`;
       console.log(path, "path");
-      addedGeoJSon=viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
+      viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
         stroke: Cesium.Color.HOTPINK,
         fill: Cesium.Color.PINK,
         strokeWidth: 3,
+      }).then(function(myDataSource) { 
+          addedGeoJSon = myDataSource;
       }));
     }
 
