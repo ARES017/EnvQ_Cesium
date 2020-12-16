@@ -207,10 +207,10 @@
     function radioPlaceChangeHandler(type) {
       for (let index = 0; index < availablePlaces.length; index++) {
         if (availablePlaces[index].id == type) {
+          reset();
           availablePlaces[index].checked = true;
           selectedPlace = availablePlaces[index];
           neededIndices(availablePlaces[index].id);
-          reset();
           viewer.camera.flyTo({
             destination: Cesium.Cartesian3.fromDegrees(selectedPlace.position.west, selectedPlace.position.south, 250000)
           });
@@ -234,7 +234,8 @@
       document.getElementById('description').innerHTML = "";
       let imageToBeDisplayed = "";
       ImageryPlotting(imageToBeDisplayed);
-      geojsonPlotting(imageToBeDisplayed);
+      removeGeoJson();
+     // geojsonPlotting(imageToBeDisplayed);
     }
 
     function radioPollutions() {
@@ -264,6 +265,8 @@
     function radioPollutionChangeHandler(type) {
       for (let index = 0; index < pollutionTypes.length; index++) {
         if (pollutionTypes[index].id == type) {
+          removeGeoJson();
+          ImageryPlotting("");
           pollutionTypes[index].checked = true;
           pollutionTypes[index].placeId = selectedPlace.id;
           selectedPollution = pollutionTypes[index];
@@ -277,8 +280,6 @@
             document.getElementById('indices-wrapper').style.display = 'none';
             radioIndicesChangeHandler(11);
           }
-          ImageryPlotting("");
-          geojsonPlotting("")
         } else {
           pollutionTypes[index].checked = false;
         }
@@ -471,13 +472,24 @@
       }
     }
 
+    function removeGeoJson(){
+      let path = `./images_environmental_impacts/${geojson}.geojson`;
+      console.log(path, "path");
+      viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
+        stroke: Cesium.Color.HOTPINK,
+        fill: Cesium.Color.PINK,
+        strokeWidth: 3,
+        show:false
+      }));
+    }
+
     function geojsonPlotting(geojson) {
       let path = `./images_environmental_impacts/${geojson}.geojson`;
       console.log(path, "path");
       viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
         stroke: Cesium.Color.HOTPINK,
         fill: Cesium.Color.PINK,
-        strokeWidth: 3
+        strokeWidth: 3,
       }));
     }
 
