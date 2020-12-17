@@ -473,6 +473,7 @@
     }
     let addedGeoJSon;
     function removeGeoJson(){
+      console.log("remove geojson");
       viewer.dataSources.remove(addedGeoJSon, true);
       delete addedGeoJSon;
     }
