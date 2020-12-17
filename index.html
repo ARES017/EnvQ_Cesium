@@ -213,7 +213,7 @@
           neededIndices(availablePlaces[index].id);
           reset();
           viewer.camera.flyTo({
-            destination: Cesium.Cartesian3.fromDegrees(selectedPlace.position.west, selectedPlace.position.south, 25000)
+            destination: Cesium.Cartesian3.fromDegrees(selectedPlace.position.west, selectedPlace.position.south, 35000)
           });
         } else {
           availablePlaces[index].checked = false;
@@ -235,8 +235,6 @@
       document.getElementById('description').innerHTML = "";
       let imageToBeDisplayed = "";
       ImageryPlotting(imageToBeDisplayed);
-      // removeGeoJson();
-     // geojsonPlotting(imageToBeDisplayed);
     }
 
     function radioPollutions() {
@@ -253,6 +251,9 @@
           indicesToShow = pollutionTypes[index].indices;
           document.getElementById('indices').innerHTML = radioIndices();
           document.getElementById('indices-wrapper').style.display = 'block';
+          viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(selectedPollution.id==1?selectedPlace.airPollutionPostion.west:selectedPlace.position.west,selectedPollution.id==1?selectedPlace.airPollutionPostion.south:selectedPlace.position.south, 35000)
+          });
           if(selectedPollution.id==3){
             document.getElementById('indices').innerHTML = "";
             document.getElementById('indices-wrapper').style.display = 'none';
@@ -266,7 +267,6 @@
     function radioPollutionChangeHandler(type) {
       for (let index = 0; index < pollutionTypes.length; index++) {
         if (pollutionTypes[index].id == type) {
-          //removeGeoJson();
           ImageryPlotting("");
           pollutionTypes[index].checked = true;
           pollutionTypes[index].placeId = selectedPlace.id;
