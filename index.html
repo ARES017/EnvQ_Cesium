@@ -251,9 +251,6 @@
           indicesToShow = pollutionTypes[index].indices;
           document.getElementById('indices').innerHTML = radioIndices();
           document.getElementById('indices-wrapper').style.display = 'block';
-          viewer.camera.flyTo({
-            destination: Cesium.Cartesian3.fromDegrees(selectedPollution.id==1?selectedPlace.airPollutionPostion.west:selectedPlace.position.west,selectedPollution.id==1?selectedPlace.airPollutionPostion.south:selectedPlace.position.south, 35000)
-          });
           if(selectedPollution.id==3){
             document.getElementById('indices').innerHTML = "";
             document.getElementById('indices-wrapper').style.display = 'none';
@@ -281,6 +278,9 @@
             document.getElementById('indices-wrapper').style.display = 'none';
             radioIndicesChangeHandler(11);
           }
+          viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(selectedPollution.id==1?selectedPlace.airPollutionPostion.west:selectedPlace.position.west,selectedPollution.id==1?selectedPlace.airPollutionPostion.south:selectedPlace.position.south, 35000)
+          });
         } else {
           pollutionTypes[index].checked = false;
         }
