@@ -353,6 +353,7 @@
         let imageToBeDisplayed = selectedPlace.name + '/' + selectedPollution.name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].name + '/' + formatedDate.replace(/-/g, "_");
         ImageryPlotting(imageToBeDisplayed);
       } else {
+        removeGeoJson();
         let geojsonToBePlotted = selectedPlace.name + '/' + selectedPollution.name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].name + '/' + formatedDate.replace(/-/g, "_");
         geojsonPlotting(geojsonToBePlotted);
       }
@@ -489,7 +490,7 @@
           viewer.dataSources.add(myDataSource);
           addedGeoJSon = myDataSource;
       });
-      console.log(viewer.dataSources.contains(addedGeoJSon),"printttttttttttttttttt")
+    //  console.log(viewer.dataSources.contains(addedGeoJSon),"printttttttttttttttttt")
       // viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
       //   stroke: Cesium.Color.HOTPINK,
       //   fill: Cesium.Color.PINK,
