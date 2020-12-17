@@ -312,7 +312,7 @@
         if (indicesCorrespondingToSelectedPlace[index].id == type) {
           indicesCorrespondingToSelectedPlace[index].checked = true;
           radioCheckedIndex = index;
-          document.getElementById('dynamicslider').innerHTML = dynamicSlider(index);
+         // document.getElementById('dynamicslider').innerHTML = dynamicSlider(index);
           document.getElementById('description').innerHTML = dynamicDescription(index);
           if (selectedPollution.id != 1) {
             let imageToBeDisplayed = selectedPlace.name + '/' + selectedPollution.name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].date[0];
