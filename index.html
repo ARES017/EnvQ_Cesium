@@ -213,7 +213,7 @@
           neededIndices(availablePlaces[index].id);
           reset();
           viewer.camera.flyTo({
-            destination: Cesium.Cartesian3.fromDegrees(selectedPlace.position.west, selectedPlace.position.south, 35000)
+            destination: Cesium.Cartesian3.fromDegrees(selectedPlace.position.west-0.5, selectedPlace.position.south-0.5, 40000)
           });
         } else {
           availablePlaces[index].checked = false;
@@ -279,7 +279,7 @@
             radioIndicesChangeHandler(11);
           }
           viewer.camera.flyTo({
-            destination: Cesium.Cartesian3.fromDegrees(selectedPollution.id==1?selectedPlace.airPollutionPostion.west:selectedPlace.position.west,selectedPollution.id==1?selectedPlace.airPollutionPostion.south:selectedPlace.position.south, 35000)
+            destination: Cesium.Cartesian3.fromDegrees(selectedPollution.id==1?selectedPlace.airPollutionPostion.west-0.5:selectedPlace.position.west-0.5,selectedPollution.id==1?selectedPlace.airPollutionPostion.south-0.5:selectedPlace.position.south-0.5, 35000)
           });
         } else {
           pollutionTypes[index].checked = false;
