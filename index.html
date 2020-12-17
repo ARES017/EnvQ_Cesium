@@ -54,7 +54,7 @@
               </div>
               <div class="col-sm-12 col-md-7 col-lg-12">
                 <div class="radio-outer-wrapper">
-                  <h2 class="label-head" id="pollution-header" style="display: block;">Analysis Parameters</h2>
+                  <h2 class="label-head" id="pollution-header" style="display: none;">Analysis Parameters</h2>
                   <div id="pollutions"></div>
                 </div>
               </div>
@@ -207,8 +207,8 @@
     function radioPlaceChangeHandler(type) {
       for (let index = 0; index < availablePlaces.length; index++) {
         if (availablePlaces[index].id == type) {
-          document.getElementById('pollution-header').style.display='none';
-          document.getElementById('pollutions').innerHTML = radioPollutions();
+          document.getElementById('pollution-header').style.display='block';
+         // document.getElementById('pollutions').innerHTML = radioPollutions();
           availablePlaces[index].checked = true;
           selectedPlace = availablePlaces[index];
           neededIndices(availablePlaces[index].id);
