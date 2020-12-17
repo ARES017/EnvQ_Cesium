@@ -213,7 +213,7 @@
           neededIndices(availablePlaces[index].id);
           reset();
           viewer.camera.flyTo({
-            destination: Cesium.Cartesian3.fromDegrees(selectedPlace.position.west, selectedPlace.position.south, 250000)
+            destination: Cesium.Cartesian3.fromDegrees(selectedPlace.position.west, selectedPlace.position.south, 25000)
           });
         } else {
           availablePlaces[index].checked = false;
@@ -317,7 +317,6 @@
           document.getElementById('description').innerHTML = dynamicDescription(index);
           
             let imageToBeDisplayed = selectedPlace.name + '/' + selectedPollution.name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].date[0];
-            console.log(imageToBeDisplayed, "image to be displayed");
             ImageryPlotting(imageToBeDisplayed);
         
         } else {
@@ -446,7 +445,6 @@
     }
 
     function ImageryPlotting(imageType) {
-      console.log(imageType, "imagetype");
       layers = viewer.scene.imageryLayers;
       layers.remove(layer);
       if (imageType != null) {
@@ -472,14 +470,12 @@
     // let addedGeoJSon;
 
     // function removeGeoJson(){
-    //   console.log("remove geojson");
     //   viewer.dataSources.remove(addedGeoJSon, true);
     //   delete addedGeoJSon;
     // }
 
     // function geojsonPlotting(geojson) {
     //   let path = `./images_environmental_impacts/${geojson}.geojson`;
-    //   console.log(path, "path");
     //   Cesium.GeoJsonDataSource.load(`${path}`, {
     //           stroke: Cesium.Color.HOTPINK,
     //           fill: Cesium.Color.PINK,
