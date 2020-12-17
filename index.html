@@ -95,15 +95,15 @@
     }
 
     var availablePlaces = [
-      { id: 1, name: 'Chennai', checked: false, position: { west: 80.0, south: 12.95, east: 80.1, north: 13.05 } },
-      { id: 2, name: 'Mumbai', checked: false, position: { west: 72.9, south: 19, east: 73, north: 19.1 } },
-      { id: 3, name: 'Kolkata', checked: false, position: { west: 88.3, south: 22.6, east: 88.4, north: 22.7 } },
-      { id: 4, name: 'Delhi', checked: false, position: { west: 77.25, south: 28.5, east: 77.35, north: 28.6 } },
-      { id: 5, name: 'Hyderabad', checked: false, position: { west: 78.45, south: 17.4, east: 78.5, north: 17.45 } }
+      { id: 1, name: 'Chennai', checked: false, position: { west: 80.0, south: 12.95, east: 80.1, north: 13.05 },airPollutionPostion:{west:80.16964722,south:12.95175934,east:80.30596924,north:13.13380146} },
+      { id: 2, name: 'Mumbai', checked: false, position: { west: 72.9, south: 19, east: 73, north: 19.1 } ,airPollutionPostion:{west:72.77597046,south:18.89069557,east:72.98468018,north:19.26921654}},
+      { id: 3, name: 'Kolkata', checked: false, position: { west: 88.3, south: 22.6, east: 88.4, north: 22.7 } ,airPollutionPostion:{west:88.27065277,south:22.4949398,east:88.40731049,north:22.62973976}},
+      { id: 4, name: 'Delhi', checked: false, position: { west: 77.25, south: 28.5, east: 77.35, north: 28.6 } ,airPollutionPostion:{west:76.83291626,south:28.40846062,east:77.33773804,north:28.88451195}},
+      { id: 5, name: 'Hyderabad', checked: false, position: { west: 78.45, south: 17.4, east: 78.5, north: 17.45 },airPollutionPostion:{west:78.38410187,south:17.29707146,east:78.53453064,north:17.47178841} }
     ];
 
     var pollutionTypes = [
-      { id: 1, name: 'Air pollution', checked: false, indices: [1, 2, 3, 4, 5, 6] },
+      { id: 1, name: 'Air Pollution', checked: false, indices: [1, 2, 3, 4, 5, 6] },
       { id: 2, name: 'Water Pollution', checked: false, indices: [7, 8, 9, 10] },
       { id: 3, name: 'False Color', checked: false, indices: [11] },
     ];
@@ -208,7 +208,6 @@
       for (let index = 0; index < availablePlaces.length; index++) {
         if (availablePlaces[index].id == type) {
           document.getElementById('pollution-header').style.display='block';
-         // document.getElementById('pollutions').innerHTML = radioPollutions();
           availablePlaces[index].checked = true;
           selectedPlace = availablePlaces[index];
           neededIndices(availablePlaces[index].id);
@@ -236,7 +235,7 @@
       document.getElementById('description').innerHTML = "";
       let imageToBeDisplayed = "";
       ImageryPlotting(imageToBeDisplayed);
-      removeGeoJson();
+      // removeGeoJson();
      // geojsonPlotting(imageToBeDisplayed);
     }
 
@@ -267,7 +266,7 @@
     function radioPollutionChangeHandler(type) {
       for (let index = 0; index < pollutionTypes.length; index++) {
         if (pollutionTypes[index].id == type) {
-          removeGeoJson();
+          //removeGeoJson();
           ImageryPlotting("");
           pollutionTypes[index].checked = true;
           pollutionTypes[index].placeId = selectedPlace.id;
@@ -316,15 +315,11 @@
           radioCheckedIndex = index;
           document.getElementById('dynamicslider').innerHTML = dynamicSlider(index);
           document.getElementById('description').innerHTML = dynamicDescription(index);
-          if (selectedPollution.id != 1) {
+          
             let imageToBeDisplayed = selectedPlace.name + '/' + selectedPollution.name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].date[0];
             console.log(imageToBeDisplayed, "image to be displayed");
             ImageryPlotting(imageToBeDisplayed);
-          } else {
-            let geojsonToBePlotted = selectedPlace.name + '/' + selectedPollution.name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].date[0];
-            console.log(geojsonToBePlotted, "geojson to be plotted");
-            geojsonPlotting(geojsonToBePlotted);
-          }
+        
         } else {
           indicesCorrespondingToSelectedPlace[index].checked = false;
         }
@@ -351,14 +346,10 @@
     function sliderChangeHandler(valueFromSlider, targetDivId) {
       var formatedDate = sliderValueToDate(valueFromSlider);
       document.getElementById(targetDivId).innerHTML = formatedDate;
-      if (selectedPollution.id != 1) {
+      
         let imageToBeDisplayed = selectedPlace.name + '/' + selectedPollution.name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].name + '/' + formatedDate.replace(/-/g, "_");
         ImageryPlotting(imageToBeDisplayed);
-      } else {
-        removeGeoJson();
-        let geojsonToBePlotted = selectedPlace.name + '/' + selectedPollution.name + '/' + indicesCorrespondingToSelectedPlace[radioCheckedIndex].name + '/' + formatedDate.replace(/-/g, "_");
-        geojsonPlotting(geojsonToBePlotted);
-      }
+      
     }
 
     function neededIndices(place) {
@@ -464,43 +455,40 @@
           new Cesium.SingleTileImageryProvider({
             url: imagePath,
             rectangle: Cesium.Rectangle.fromDegrees(
-              selectedPlace.position.west,
-              selectedPlace.position.south,
-              selectedPlace.position.east,
-              selectedPlace.position.north
+              selectedPollution.id==1?selectedPlace.airPollutionPostion.west:selectedPlace.position.west,
+              selectedPollution.id==1?selectedPlace.airPollutionPostion.south:selectedPlace.position.south,
+              selectedPollution.id==1?selectedPlace.airPollutionPostion.east:selectedPlace.position.east,
+              selectedPollution.id==1?selectedPlace.airPollutionPostion.north:selectedPlace.position.north
             ),
           })
         );
         layers.add(layer);
       }
     }
-    let addedGeoJSon;
-    function removeGeoJson(){
-      console.log("remove geojson");
-      viewer.dataSources.remove(addedGeoJSon, true);
-      delete addedGeoJSon;
-    }
 
-    function geojsonPlotting(geojson) {
-      let path = `./images_environmental_impacts/${geojson}.geojson`;
-      console.log(path, "path");
-      Cesium.GeoJsonDataSource.load(`${path}`, {
-              stroke: Cesium.Color.HOTPINK,
-              fill: Cesium.Color.PINK,
-              strokeWidth: 3,
-      }).then(function(myDataSource) { 
-          viewer.dataSources.add(myDataSource);
-          addedGeoJSon = myDataSource;
-      });
-    //  console.log(viewer.dataSources.contains(addedGeoJSon),"printttttttttttttttttt")
-      // viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
-      //   stroke: Cesium.Color.HOTPINK,
-      //   fill: Cesium.Color.PINK,
-      //   strokeWidth: 3,
-      // })).then(function(myDataSource) { 
-      //     addedGeoJSon = myDataSource;
-      // });
-    }
+    // GeoJson addition and removal 
+    // ---------------------------------
+
+    // let addedGeoJSon;
+
+    // function removeGeoJson(){
+    //   console.log("remove geojson");
+    //   viewer.dataSources.remove(addedGeoJSon, true);
+    //   delete addedGeoJSon;
+    // }
+
+    // function geojsonPlotting(geojson) {
+    //   let path = `./images_environmental_impacts/${geojson}.geojson`;
+    //   console.log(path, "path");
+    //   Cesium.GeoJsonDataSource.load(`${path}`, {
+    //           stroke: Cesium.Color.HOTPINK,
+    //           fill: Cesium.Color.PINK,
+    //           strokeWidth: 3,
+    //   }).then(function(myDataSource) { 
+    //       viewer.dataSources.add(myDataSource);
+    //       addedGeoJSon = myDataSource;
+    //   });
+   // }
 
   </script>
 </body>
