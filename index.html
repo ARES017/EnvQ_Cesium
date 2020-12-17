@@ -480,13 +480,21 @@
     function geojsonPlotting(geojson) {
       let path = `./images_environmental_impacts/${geojson}.geojson`;
       console.log(path, "path");
-      viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
-        stroke: Cesium.Color.HOTPINK,
-        fill: Cesium.Color.PINK,
-        strokeWidth: 3,
+      Cesium.GeoJsonDataSource.load(`${path}`, {
+              stroke: Cesium.Color.HOTPINK,
+              fill: Cesium.Color.PINK,
+              strokeWidth: 3,
       }).then(function(myDataSource) { 
+          viewer.dataSources.add(myDataSource);
           addedGeoJSon = myDataSource;
-      }));
+      });
+      // viewer.dataSources.add(Cesium.GeoJsonDataSource.load(`${path}`, {
+      //   stroke: Cesium.Color.HOTPINK,
+      //   fill: Cesium.Color.PINK,
+      //   strokeWidth: 3,
+      // })).then(function(myDataSource) { 
+      //     addedGeoJSon = myDataSource;
+      // });
     }
 
   </script>
