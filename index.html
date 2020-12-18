@@ -69,11 +69,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12">
               <div class="silder-wrapper progress-slider mb-2" id="dynamicslider"></div>
             </div>
-
-            <div class="col-sm-12 col-md-12 col-lg-12" id="description">
-            </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -81,7 +77,9 @@
       <div id="cesiumContainer" class="fullSize"></div>
     </div>
   </div>
-
+  <div class="discription-container">
+    <div id="description"></div>
+   </div>
 
 
   </div>
@@ -96,15 +94,17 @@
 
     var availablePlaces = [
       { id: 1, name: 'Chennai', checked: false, position: { west: 80.0, south: 12.95, east: 80.1, north: 13.05 },airPollutionPostion:{west:80.16964722,south:12.95175934,east:80.30596924,north:13.13380146} },
-      { id: 2, name: 'Mumbai', checked: false, position: { west: 72.9, south: 19, east: 73, north: 19.1 } ,airPollutionPostion:{west:72.77597046,south:18.89069557,east:72.98468018,north:19.26921654}},
-      { id: 3, name: 'Kolkata', checked: false, position: { west: 88.3, south: 22.6, east: 88.4, north: 22.7 } ,airPollutionPostion:{west:88.27065277,south:22.4949398,east:88.40731049,north:22.62973976}},
-      { id: 4, name: 'Delhi', checked: false, position: { west: 77.25, south: 28.5, east: 77.35, north: 28.6 } ,airPollutionPostion:{west:76.83291626,south:28.40846062,east:77.33773804,north:28.88451195}},
-      { id: 5, name: 'Hyderabad', checked: false, position: { west: 78.45, south: 17.4, east: 78.5, north: 17.45 },airPollutionPostion:{west:78.38410187,south:17.29707146,east:78.53453064,north:17.47178841} }
+      { id: 2, name: 'Delhi', checked: false, position: { west: 77.25, south: 28.5, east: 77.35, north: 28.6 } ,airPollutionPostion:{west:76.83291626,south:28.40846062,east:77.33773804,north:28.88451195}},
+      { id: 3, name: 'Hyderabad', checked: false, position: { west: 78.45, south: 17.4, east: 78.5, north: 17.45 },airPollutionPostion:{west:78.38410187,south:17.29707146,east:78.53453064,north:17.47178841} },
+      { id: 4, name: 'Kolkata', checked: false, position: { west: 88.3, south: 22.6, east: 88.4, north: 22.7 } ,airPollutionPostion:{west:88.27065277,south:22.4949398,east:88.40731049,north:22.62973976}},
+      { id: 5, name: 'Mumbai', checked: false, position: { west: 72.9, south: 19, east: 73, north: 19.1 } ,airPollutionPostion:{west:72.77597046,south:18.89069557,east:72.98468018,north:19.26921654}},
+      
+      
     ];
 
     var pollutionTypes = [
-      { id: 1, name: 'Air Pollution', checked: false, indices: [1, 2, 3, 4, 5, 6] },
-      { id: 2, name: 'Water Pollution', checked: false, indices: [7, 8, 9, 10] },
+      { id: 1, name: 'Air Quality', checked: false, indices: [1, 2, 3, 4, 5, 6] },
+      { id: 2, name: 'Water Quality', checked: false, indices: [7, 8, 9, 10] },
       { id: 3, name: 'False Color', checked: false, indices: [11] },
     ];
 
@@ -324,9 +324,9 @@
         }
       }
     }
-
+    
     function dynamicDescription(index) {
-      let description = "<div class=has-decription><h2>Description</h2>" + indicesCorrespondingToSelectedPlace[index].description + "</div>"
+      let description = "<div class=has-decription><div class=d-flex><div class=flex-fill><h2>Description</h2></div><div class=flex-auto><span class=container-close></span></div></div>" + indicesCorrespondingToSelectedPlace[index].description + "</div>"
       return description;
     }
 
