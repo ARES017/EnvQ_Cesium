@@ -40,7 +40,7 @@
       <div class="slider-container-wrapper max-width-350">
         <div class="slidecontainer d-flex flex-column h-100">
           <div class="navbar-brand m-0 is-title flex-auto">
-            <h6 class="nav-title">EnvQ</h6>
+            <h6 class="nav-title" style="font-size: 23px;">EnvQ</h6>
             <p class="nav-subtext">Application depicting the impact of pollution on pre, post and during Covid-19
               lockdown period.</p>
           </div>
@@ -212,6 +212,7 @@
           selectedPlace = availablePlaces[index];
           neededIndices(availablePlaces[index].id);
           reset();
+
           viewer.camera.flyTo({
             destination: Cesium.Cartesian3.fromDegrees((selectedPlace.position.west+selectedPlace.position.east)/2, (selectedPlace.position.south+selectedPlace.position.north)/2, 90000)
           });
@@ -284,7 +285,7 @@
                                       :(selectedPlace.position.west+selectedPlace.position.east)/2,
                                       selectedPollution.id==1?
                                       (selectedPlace.airPollutionPostion.south+selectedPlace.airPollutionPostion.north)/2
-                                      :(selectedPlace.position.south+selectedPlace.airPollutionPostion.north)/2, 90000)
+                                      :(selectedPlace.position.south+selectedPlace.airPollutionPostion.north)/2, selectedPollution.id=1?80000:50000)
           });
         } else {
           pollutionTypes[index].checked = false;
