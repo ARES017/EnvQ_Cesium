@@ -213,7 +213,7 @@
           neededIndices(availablePlaces[index].id);
           reset();
           viewer.camera.flyTo({
-            destination: Cesium.Cartesian3.fromDegrees(selectedPlace.position.west, selectedPlace.position.south, 90000)
+            destination: Cesium.Cartesian3.fromDegrees((selectedPlace.position.west+selectedPlace.position.east)/2, (selectedPlace.position.south+selectedPlace.position.north)/2, 90000)
           });
         } else {
           availablePlaces[index].checked = false;
@@ -279,7 +279,12 @@
             radioIndicesChangeHandler(11);
           }
           viewer.camera.flyTo({
-            destination: Cesium.Cartesian3.fromDegrees(selectedPollution.id==1?selectedPlace.airPollutionPostion.west:selectedPlace.position.west,selectedPollution.id==1?selectedPlace.airPollutionPostion.south:selectedPlace.position.south, 90000)
+            destination: Cesium.Cartesian3.fromDegrees(selectedPollution.id==1?
+                                      (selectedPlace.airPollutionPostion.west+selectedPlace.airPollutionPostion.east)/2
+                                      :(selectedPlace.position.west+selectedPlace.position.east)/2,
+                                      selectedPollution.id==1?
+                                      (selectedPlace.airPollutionPostion.south+selectedPlace.airPollutionPostion.north)/2
+                                      :(selectedPlace.position.south+selectedPlace.airPollutionPostion.north)/2, 90000)
           });
         } else {
           pollutionTypes[index].checked = false;
@@ -324,7 +329,7 @@
         }
       }
     }
-    
+
     function dynamicDescription(index) {
       let description = "<div class=has-decription><div class=d-flex><div class=flex-fill><h2>Description</h2></div><div class=flex-auto><span class=container-close></span></div></div>" + indicesCorrespondingToSelectedPlace[index].description + "</div>"
       return description;
