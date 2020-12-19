@@ -465,19 +465,6 @@
       layers.remove(layer);
       if (imageType != null) {
         var imagePath = `./images_environmental_impacts/${imageType}.png`;
-        layer = layers.addImageryProvider(
-          new Cesium.SingleTileImageryProvider({
-            url: imagePath,
-            rectangle: Cesium.Rectangle.fromDegrees(
-              selectedPollution.id == 1 ? selectedPlace.airPollutionPostion.west : selectedPlace.position.west,
-              selectedPollution.id == 1 ? selectedPlace.airPollutionPostion.south : selectedPlace.position.south,
-              selectedPollution.id == 1 ? selectedPlace.airPollutionPostion.east : selectedPlace.position.east,
-              selectedPollution.id == 1 ? selectedPlace.airPollutionPostion.north : selectedPlace.position.north
-            ),
-          })
-        );
-        layers.add(layer);
-
         var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(
           0.0,
           -35,
@@ -491,6 +478,20 @@
           },
         };
         viewer.scene.camera.setView(homeCameraView);
+        layer = layers.addImageryProvider(
+          new Cesium.SingleTileImageryProvider({
+            url: imagePath,
+            rectangle: Cesium.Rectangle.fromDegrees(
+              selectedPollution.id == 1 ? selectedPlace.airPollutionPostion.west : selectedPlace.position.west,
+              selectedPollution.id == 1 ? selectedPlace.airPollutionPostion.south : selectedPlace.position.south,
+              selectedPollution.id == 1 ? selectedPlace.airPollutionPostion.east : selectedPlace.position.east,
+              selectedPollution.id == 1 ? selectedPlace.airPollutionPostion.north : selectedPlace.position.north
+            ),
+          })
+        );
+        layers.add(layer);
+
+     
       }
     }
 
