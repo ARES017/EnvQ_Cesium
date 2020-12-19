@@ -344,8 +344,6 @@
     }
 
     function sliderValueToDate(sliderValue) {
-      console.log(sliderValue,"value from slider");
-      console.log(indicesCorrespondingToSelectedPlace[radioCheckedIndex],"array taken")
       var formatedDate = (indicesCorrespondingToSelectedPlace[radioCheckedIndex].date[sliderValue]).replace(/_/g, "-");
       return formatedDate;
     }
@@ -365,16 +363,16 @@
           indicesCorrespondingToSelectedPlace = availableIndicesOfChennai;
           break;
         case 2:
-          indicesCorrespondingToSelectedPlace = availableIndicesOfMumbai;
-          break;
-        case 3:
-          indicesCorrespondingToSelectedPlace = availableIndicesOfKolkata;
-          break;
-        case 4:
           indicesCorrespondingToSelectedPlace = availableIndicesOfDelhi;
           break;
-        case 5:
+        case 3:
           indicesCorrespondingToSelectedPlace = availableIndicesOfHyderabad;
+          break;
+        case 4:
+          indicesCorrespondingToSelectedPlace = availableIndicesOfKolkata;
+          break;
+        case 5:
+          indicesCorrespondingToSelectedPlace = availableIndicesOfMumbai;
           break;
         default:
           break;
