@@ -477,18 +477,13 @@
           })
         );
         layers.add(layer);
-        var initialPosition = new Cesium.Cartesian3.fromDegrees(
-          -76.4,
-          36.35,
-          35000
-        );
+
         var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(
           0.0,
           -35,
           0.0
         );
         var homeCameraView = {
-          destination: initialPosition,
           orientation: {
             heading: initialOrientation.heading,
             pitch: initialOrientation.pitch,
