@@ -98,6 +98,8 @@
       { id: 3, name: 'Hyderabad', checked: false, position: { west: 78.45, south: 17.4, east: 78.5, north: 17.45 },airPollutionPostion:{west:78.38410187,south:17.29707146,east:78.53453064,north:17.47178841} },
       { id: 4, name: 'Kolkata', checked: false, position: { west: 88.3, south: 22.6, east: 88.4, north: 22.7 } ,airPollutionPostion:{west:88.27065277,south:22.4949398,east:88.40731049,north:22.62973976}},
       { id: 5, name: 'Mumbai', checked: false, position: { west: 72.9, south: 19, east: 73, north: 19.1 } ,airPollutionPostion:{west:72.77597046,south:18.89069557,east:72.98468018,north:19.26921654}},
+      
+      
     ];
 
     var pollutionTypes = [
@@ -425,8 +427,8 @@
       var initialPosition = new Cesium.Cartesian3.fromDegrees(0, 0, 0, 0);
       var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(
         0.0,
-        -80,
-        20
+        -40,
+        0.0
       );
       var homeCameraView = {
         destination: initialPosition,
