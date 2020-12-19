@@ -465,19 +465,6 @@
       layers.remove(layer);
       if (imageType != null) {
         var imagePath = `./images_environmental_impacts/${imageType}.png`;
-        var initialOrientation = new Cesium.HeadingPitchRoll.fromDegrees(
-          0.0,
-          -35,
-          0.0
-        );
-        var homeCameraView = {
-          orientation: {
-            heading: initialOrientation.heading,
-            pitch: initialOrientation.pitch,
-            roll: initialOrientation.roll,
-          },
-        };
-        viewer.scene.camera.setView(homeCameraView);
         layer = layers.addImageryProvider(
           new Cesium.SingleTileImageryProvider({
             url: imagePath,
@@ -490,8 +477,6 @@
           })
         );
         layers.add(layer);
-
-     
       }
     }
 
