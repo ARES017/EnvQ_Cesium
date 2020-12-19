@@ -344,6 +344,8 @@
     }
 
     function sliderValueToDate(sliderValue) {
+      console.log(sliderValue,"value from slider");
+      console.log(indicesCorrespondingToSelectedPlace[radioCheckedIndex],"array taken")
       var formatedDate = (indicesCorrespondingToSelectedPlace[radioCheckedIndex].date[sliderValue]).replace(/_/g, "-");
       return formatedDate;
     }
