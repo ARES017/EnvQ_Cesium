@@ -334,13 +334,12 @@
     }
 
     function dynamicDescription(index) {
-      let description = "<div class=has-decription><div class=d-flex><div class=flex-fill><h2>Description</h2><span class=container-close onclick=descriptionHandler()></span></div><div class=flex-auto></div></div>" + indicesCorrespondingToSelectedPlace[index].description + "</div>"
+      let description = "<div class=has-decription><div class=d-flex><div class=flex-fill><h2>Description</h2></div><span class=container-close onclick=descriptionHandler()></span><div class=flex-auto></div></div>" + indicesCorrespondingToSelectedPlace[index].description + "</div>"
       return description;
     }
 
     function descriptionHandler(){
-      console.log("<div style=font-size:large;color:white onclick=showDescription><a href=>Show Description</a></div>")
-      document.getElementById('description').innerHTML = "<div style=font-size:large;color:white onclick=showDescription><a style=color:white>Show Description</a></div>"
+      document.getElementById('description').innerHTML = "<div style=font-size:large ><a style=color:white onclick=showDescription>Show Description</a></div>"
     }
 
     function showDescription(){
