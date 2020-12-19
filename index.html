@@ -283,10 +283,10 @@
           viewer.camera.flyTo({
             destination: Cesium.Cartesian3.fromDegrees(selectedPollution.id==1?
                                       (selectedPlace.airPollutionPostion.west+selectedPlace.airPollutionPostion.east)/2
-                                      :selectedPlace.position.west,
+                                      :(selectedPlace.position.west+selectedPlace.position.east)/2,
                                       selectedPollution.id==1?
                                       (selectedPlace.airPollutionPostion.south+selectedPlace.airPollutionPostion.north)/2
-                                      :selectedPlace.position.south, selectedPollution.id==1?(selectedPlace.id==2 || selectedPlace.id==5?90000:50000):30000)
+                                      :(selectedPlace.position.south+selectedPlace.position.north)/2, selectedPollution.id==1?(selectedPlace.id==2 || selectedPlace.id==5?90000:50000):30000)
           });
           
         } else {
