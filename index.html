@@ -279,14 +279,16 @@
             document.getElementById('indices-wrapper').style.display = 'none';
             radioIndicesChangeHandler(11);
           }
+
           viewer.camera.flyTo({
             destination: Cesium.Cartesian3.fromDegrees(selectedPollution.id==1?
                                       (selectedPlace.airPollutionPostion.west+selectedPlace.airPollutionPostion.east)/2
-                                      :(selectedPlace.position.west+selectedPlace.position.east)/2,
+                                      :selectedPlace.position.west,
                                       selectedPollution.id==1?
                                       (selectedPlace.airPollutionPostion.south+selectedPlace.airPollutionPostion.north)/2
-                                      :(selectedPlace.position.south+selectedPlace.airPollutionPostion.north)/2, selectedPollution.id==1?(selectedPlace.id==2 || selectedPlace.id==5?90000:50000):30000)
+                                      :selectedPlace.position.south, selectedPollution.id==1?(selectedPlace.id==2 || selectedPlace.id==5?90000:50000):30000)
           });
+          
         } else {
           pollutionTypes[index].checked = false;
         }
@@ -332,8 +334,18 @@
     }
 
     function dynamicDescription(index) {
-      let description = "<div class=has-decription><div class=d-flex><div class=flex-fill><h2>Description</h2></div><div class=flex-auto></div></div>" + indicesCorrespondingToSelectedPlace[index].description + "</div>"
+      let description = "<div class=has-decription><div class=d-flex><div class=flex-fill><h2>Description</h2><span class=container-close onclick=descriptionHandler()></span></div><div class=flex-auto></div></div>" + indicesCorrespondingToSelectedPlace[index].description + "</div>"
       return description;
+    }
+
+    function descriptionHandler(){
+      console.log("<div style=font-size:large;color:white onclick=showDescription><a href=>Show Description</a></div>")
+      document.getElementById('description').innerHTML = "<div style=font-size:large;color:white onclick=showDescription><a href=>Show Description</a></div>"
+    }
+
+    function showDescription(){
+      console.log("switch")
+      document.getElementById('description').innerHTML = dynamicDescription(index);
     }
 
     function dynamicSlider(index) {
